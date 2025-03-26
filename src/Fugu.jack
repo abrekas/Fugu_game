@@ -5,7 +5,7 @@ class Fugu{
 
     field int x, y;
     field int fugu_width;
-    field int fugu_height;
+    field int fugu_height; 
 
     constructor Fugu new(int Ax, int Ay)
     {
