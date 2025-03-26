@@ -13,7 +13,9 @@ class Fugu{
         let y = Ay;
         let fugu_width = 12;
         let fugu_height = 10;
-        do draw(52);
+        do draw(51);
+        do Sys.wait(5000);
+        do erase(51);
         return this;
     }
 
@@ -23,7 +25,7 @@ class Fugu{
         return;
     }
 
-    function void draw(int location) {
+    method void draw(int location) {
         var int memAddress;
         let memAddress = 16384 + location;
         do Memory.poke(memAddress + 0, 8448);
@@ -39,9 +41,39 @@ class Fugu{
         do Memory.poke(memAddress + 320, 14392);
         do Memory.poke(memAddress + 352, 3168);
         do Memory.poke(memAddress + 384, 1984);
-        do Memory.poke(memAddress + 416, 0);
-        do Memory.poke(memAddress + 448, 0);
-        do Memory.poke(memAddress + 480, 0);
+        return;
+    }
+
+    method void erase(int location) {
+        var int memAddress;
+        var int currRowValue;
+        let memAddress = 16384 + location;
+        let currRowValue = Memory.peek(memAddress + 0);
+        do Memory.poke(memAddress + 0, currRowValue - 8448);
+        let currRowValue = Memory.peek(memAddress + 32);
+        do Memory.poke(memAddress + 32, currRowValue - 26560);
+        let currRowValue = Memory.peek(memAddress + 64);
+        do Memory.poke(memAddress + 64, currRowValue - 14432);
+        let currRowValue = Memory.peek(memAddress + 96);
+        do Memory.poke(memAddress + 96, currRowValue - 12344);
+        let currRowValue = Memory.peek(memAddress + 128);
+        do Memory.poke(memAddress + 128, currRowValue +7160);
+        let currRowValue = Memory.peek(memAddress + 160);
+        do Memory.poke(memAddress + 160, currRowValue +16339);
+        let currRowValue = Memory.peek(memAddress + 192);
+        do Memory.poke(memAddress + 192, currRowValue - 16903);
+        let currRowValue = Memory.peek(memAddress + 224);
+        do Memory.poke(memAddress + 224, currRowValue - 17294);
+        let currRowValue = Memory.peek(memAddress + 256);
+        do Memory.poke(memAddress + 256, currRowValue - 24604);
+        //let currRowValue = Memory.peek(memAddress + 288);
+        //do Memory.poke(memAddress + 288, currRowValue - 8208);
+        //let currRowValue = Memory.peek(memAddress + 320);
+        //do Memory.poke(memAddress + 320, currRowValue - 14392);
+        //let currRowValue = Memory.peek(memAddress + 352);
+        //do Memory.poke(memAddress + 352, currRowValue - 3168);
+        //let currRowValue = Memory.peek(memAddress + 384);
+        //do Memory.poke(memAddress + 384, currRowValue - 1984);
         return;
     }
 
