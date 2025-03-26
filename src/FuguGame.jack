@@ -1,0 +1,15 @@
+/** game state */
+class FuguGame {
+    field Fugu fugu;
+
+    constructor FuguGame new(){
+        let fugu = Fugu.new(0,0);
+        return this;
+    }
+
+    method void dispose(){
+        do fugu.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

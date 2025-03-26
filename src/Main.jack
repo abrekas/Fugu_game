@@ -1,0 +1,12 @@
+/** Main */
+
+class Main {
+    function void main () {
+        var bool game_state;
+        var FuguGame game;
+
+        let game = FuguGame.new();
+        do game.dispose();
+        return;
+    }
+}
