@@ -23,23 +23,22 @@ class Fugu{
         return;
     }
 
-    method void draw(int location)
-    {
+    function void draw(int location) {
         var int memAddress;
         let memAddress = 16384 + location;
-        do Memory.poke(memAddress + 0, 0);
-        do Memory.poke(memAddress + 32, 0);
-        do Memory.poke(memAddress + 64, 0);
-        do Memory.poke(memAddress + 96, 1984);
-        do Memory.poke(memAddress + 128, 608);
-        do Memory.poke(memAddress + 160, 2040);
-        do Memory.poke(memAddress + 192, 2060);
-        do Memory.poke(memAddress + 224, 7190);
-        do Memory.poke(memAddress + 256, 6150);
-        do Memory.poke(memAddress + 288, 2246);
-        do Memory.poke(memAddress + 320, 1316);
-        do Memory.poke(memAddress + 352, 1404);
-        do Memory.poke(memAddress + 384, 896);
+        do Memory.poke(memAddress + 0, 8448);
+        do Memory.poke(memAddress + 32, 26560);
+        do Memory.poke(memAddress + 64, 14432);
+        do Memory.poke(memAddress + 96, 12344);
+        do Memory.poke(memAddress + 128, -7160);
+        do Memory.poke(memAddress + 160, -16339);
+        do Memory.poke(memAddress + 192, 16903);
+        do Memory.poke(memAddress + 224, 17294);
+        do Memory.poke(memAddress + 256, 24604);
+        do Memory.poke(memAddress + 288, 8208);
+        do Memory.poke(memAddress + 320, 14392);
+        do Memory.poke(memAddress + 352, 3168);
+        do Memory.poke(memAddress + 384, 1984);
         do Memory.poke(memAddress + 416, 0);
         do Memory.poke(memAddress + 448, 0);
         do Memory.poke(memAddress + 480, 0);
