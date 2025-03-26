@@ -66,14 +66,14 @@ class Fugu{
         do Memory.poke(memAddress + 224, currRowValue - 17294);
         let currRowValue = Memory.peek(memAddress + 256);
         do Memory.poke(memAddress + 256, currRowValue - 24604);
-        //let currRowValue = Memory.peek(memAddress + 288);
-        //do Memory.poke(memAddress + 288, currRowValue - 8208);
-        //let currRowValue = Memory.peek(memAddress + 320);
-        //do Memory.poke(memAddress + 320, currRowValue - 14392);
-        //let currRowValue = Memory.peek(memAddress + 352);
-        //do Memory.poke(memAddress + 352, currRowValue - 3168);
-        //let currRowValue = Memory.peek(memAddress + 384);
-        //do Memory.poke(memAddress + 384, currRowValue - 1984);
+        let currRowValue = Memory.peek(memAddress + 288);
+        do Memory.poke(memAddress + 288, currRowValue - 8208);
+        let currRowValue = Memory.peek(memAddress + 320);
+        do Memory.poke(memAddress + 320, currRowValue - 14392);
+        let currRowValue = Memory.peek(memAddress + 352);
+        do Memory.poke(memAddress + 352, currRowValue - 3168);
+        let currRowValue = Memory.peek(memAddress + 384);
+        do Memory.poke(memAddress + 384, currRowValue - 1984);
         return;
     }
 
