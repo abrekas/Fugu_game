@@ -1,0 +1,43 @@
+class Carrot{
+    field int x, y;
+    field int carrot_width;
+    field int carrot_height; 
+
+    constructor Fugu new(int Ax, int Ay)
+    {
+        let x = Ax;
+        let y = Ay;
+        let carrot_width = 12;
+        let carrot_height = 10;
+        do draw(52);
+        return this;
+    }
+
+    method void dispose()
+    {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void draw(int location) {
+        var int memAddress;
+        let memAddress = 16384 + location;
+        do Memory.poke(memAddress + 0, 2336);
+        do Memory.poke(memAddress + 32, 3424);
+        do Memory.poke(memAddress + 64, 1984);
+        do Memory.poke(memAddress + 96, 896);
+        do Memory.poke(memAddress + 128, 1984);
+        do Memory.poke(memAddress + 160, 2080);
+        do Memory.poke(memAddress + 192, 5648);
+        do Memory.poke(memAddress + 224, 4208);
+        do Memory.poke(memAddress + 256, 5904);
+        do Memory.poke(memAddress + 288, 2080);
+        do Memory.poke(memAddress + 320, 2272);
+        do Memory.poke(memAddress + 352, 1600);
+        do Memory.poke(memAddress + 384, 1088);
+        do Memory.poke(memAddress + 416, 640);
+        do Memory.poke(memAddress + 448, 896);
+        do Memory.poke(memAddress + 480, 256);
+        return;
+    }
+}

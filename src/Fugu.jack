@@ -5,7 +5,7 @@ class Fugu{
 
     field int x, y;
     field int fugu_width;
-    field int fugu_height;
+    field int fugu_height; 
 
     constructor Fugu new(int Ax, int Ay)
     {
@@ -23,7 +23,7 @@ class Fugu{
         return;
     }
 
-    function void draw(int location) {
+    method void draw(int location) {
         var int memAddress;
         let memAddress = 16384 + location;
         do Memory.poke(memAddress + 0, 8448);
