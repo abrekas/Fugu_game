@@ -2,6 +2,9 @@ function Main.main 2
     call FuguGame.new 0
     pop local 1
     push local 1
+    call FuguGame.run 1
+    pop temp 0
+    push local 1
     call FuguGame.dispose 1
     pop temp 0
     push constant 0

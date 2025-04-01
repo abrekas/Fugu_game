@@ -40,109 +40,11 @@ class Fugu{
         do Memory.poke(memAddress + 352, 3168);
         do Memory.poke(memAddress + 384, 1984);
         return;
-    }
-
-    method void erase(int location) {
-        var int memAddress;
-        var int currRowValue;
-        let memAddress = 16384 + location;
-        let currRowValue = Memory.peek(memAddress + 0);
-        do Memory.poke(memAddress + 0, currRowValue - 8448);
-        let currRowValue = Memory.peek(memAddress + 32);
-        do Memory.poke(memAddress + 32, currRowValue - 26560);
-        let currRowValue = Memory.peek(memAddress + 64);
-        do Memory.poke(memAddress + 64, currRowValue - 14432);
-        let currRowValue = Memory.peek(memAddress + 96);
-        do Memory.poke(memAddress + 96, currRowValue - 12344);
-        let currRowValue = Memory.peek(memAddress + 128);
-        do Memory.poke(memAddress + 128, currRowValue +7160);
-        let currRowValue = Memory.peek(memAddress + 160);
-        do Memory.poke(memAddress + 160, currRowValue +16339);
-        let currRowValue = Memory.peek(memAddress + 192);
-        do Memory.poke(memAddress + 192, currRowValue - 16903);
-        let currRowValue = Memory.peek(memAddress + 224);
-        do Memory.poke(memAddress + 224, currRowValue - 17294);
-        let currRowValue = Memory.peek(memAddress + 256);
-        do Memory.poke(memAddress + 256, currRowValue - 24604);
-        let currRowValue = Memory.peek(memAddress + 288);
-        do Memory.poke(memAddress + 288, currRowValue - 8208);
-        let currRowValue = Memory.peek(memAddress + 320);
-        do Memory.poke(memAddress + 320, currRowValue - 14392);
-        let currRowValue = Memory.peek(memAddress + 352);
-        do Memory.poke(memAddress + 352, currRowValue - 3168);
-        let currRowValue = Memory.peek(memAddress + 384);
-        do Memory.poke(memAddress + 384, currRowValue - 1984);
-        return;
-    }
-
-    method void erase(int location) {
-        var int memAddress;
-        var int currRowValue;
-        let memAddress = 16384 + location;
-        let currRowValue = Memory.peek(memAddress + 0);
-        do Memory.poke(memAddress + 0, currRowValue - 8448);
-        let currRowValue = Memory.peek(memAddress + 32);
-        do Memory.poke(memAddress + 32, currRowValue - 26560);
-        let currRowValue = Memory.peek(memAddress + 64);
-        do Memory.poke(memAddress + 64, currRowValue - 14432);
-        let currRowValue = Memory.peek(memAddress + 96);
-        do Memory.poke(memAddress + 96, currRowValue - 12344);
-        let currRowValue = Memory.peek(memAddress + 128);
-        do Memory.poke(memAddress + 128, currRowValue +7160);
-        let currRowValue = Memory.peek(memAddress + 160);
-        do Memory.poke(memAddress + 160, currRowValue +16339);
-        let currRowValue = Memory.peek(memAddress + 192);
-        do Memory.poke(memAddress + 192, currRowValue - 16903);
-        let currRowValue = Memory.peek(memAddress + 224);
-        do Memory.poke(memAddress + 224, currRowValue - 17294);
-        let currRowValue = Memory.peek(memAddress + 256);
-        do Memory.poke(memAddress + 256, currRowValue - 24604);
-        let currRowValue = Memory.peek(memAddress + 288);
-        do Memory.poke(memAddress + 288, currRowValue - 8208);
-        let currRowValue = Memory.peek(memAddress + 320);
-        do Memory.poke(memAddress + 320, currRowValue - 14392);
-        let currRowValue = Memory.peek(memAddress + 352);
-        do Memory.poke(memAddress + 352, currRowValue - 3168);
-        let currRowValue = Memory.peek(memAddress + 384);
-        do Memory.poke(memAddress + 384, currRowValue - 1984);
-        return;
-    }
-    
-    method void moveUp() {
-        var int newLocation;
-        do erase(y * 32 + x);
-        let y = y - 1;
-        let newLocation = y * 32 + x;
-        do draw(newLocation);
-        return;
-    }
-
-    method void moveDown() {
-        var int newLocation;
-        do erase(y * 32 + x);
-        let y = y + 1;
-        let newLocation = y * 32 + x;
-        do draw(newLocation);
-        return;
-    }
-
-    method void moveLeft() {
-        var int newLocation;
-        do erase(y * 32 + x);
-        let x = x - 2;
-        let newLocation = y * 32 + x;
-        do draw(newLocation);
-        return;
-    }
-
-    method void moveRight() {
-        var int newLocation;
-        do erase(y * 32 + x);
-        let x = x + 2;
-        let newLocation = y * 32 + x;
-        do draw(newLocation);
-        return;
-    }
+    } 
+    // каждый регистр можно делать побитовый сдвиг >> или << - разделять каждый регистр надвое 
+    // сначала просто 0 * 16 и <регистр>
+    // сдвинуться влево: 
+    // крч сдвигаемся на половину регистра или на 1/4
 
     method void erase(int location) {
         var int memAddress;
@@ -177,10 +79,11 @@ class Fugu{
         return;
     }
     
+    
     method void moveUp() {
         var int newLocation;
         do erase(y * 32 + x);
-        let y = y - 1;
+        let y = y - 2;
         let newLocation = y * 32 + x;
         do draw(newLocation);
         return;
@@ -189,7 +92,7 @@ class Fugu{
     method void moveDown() {
         var int newLocation;
         do erase(y * 32 + x);
-        let y = y + 1;
+        let y = y + 2;
         let newLocation = y * 32 + x;
         do draw(newLocation);
         return;
@@ -198,7 +101,7 @@ class Fugu{
     method void moveLeft() {
         var int newLocation;
         do erase(y * 32 + x);
-        let x = x - 2;
+        let x = x - 1;
         let newLocation = y * 32 + x;
         do draw(newLocation);
         return;
@@ -207,7 +110,7 @@ class Fugu{
     method void moveRight() {
         var int newLocation;
         do erase(y * 32 + x);
-        let x = x + 2;
+        let x = x + 1;
         let newLocation = y * 32 + x;
         do draw(newLocation);
         return;

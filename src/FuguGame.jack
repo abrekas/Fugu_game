@@ -16,10 +16,10 @@ class FuguGame {
     }
 
     method void moveFugu(){
-        if (direction = 1) { do fugu.moveUp(); }
-        if (direction = 2) { do fugu.moveDown(); }
-        if (direction = 3) { do fugu.moveLeft(); }
-        if (direction = 4) { do fugu.moveRight(); }
+        if (direction = 1) { do fugu.moveLeft(); }
+        if (direction = 2) { do fugu.moveUp(); }
+        if (direction = 3) { do fugu.moveRight(); }
+        if (direction = 4) { do fugu.moveDown(); }
         do Sys.wait(5);
         return;
     }
@@ -30,24 +30,35 @@ class FuguGame {
         let exit = false;
 
         while (~exit){
-            while (key = 0) {
-                let key = Keyboard.keyPressed();
-                do moveFugu();
-            }
-            if (key = 81) { let exit = true; }
-            if (key = 131) { let direction = 1; }
-            if (key = 119) { let direction = 1; }
-            if (key = 133) { let direction = 2; }
-            if (key = 115) { let direction = 2; }
-            if (key = 130) { let direction = 3; }
-            if (key = 97) { let direction = 3; }
-            if (key = 132) { let direction = 4; }
-            if (key = 100) { let direction = 4; }
+            let key = 1;
+            //while (key = 0) {
+            //    let key = Keyboard.keyPressed();
+            //    do moveFugu();
+            //}
+            //if (key = 0) { let direction = 0; }
+            //if (key = 81) { let exit = true; }
+            //if (key = 131) { let direction = 2; } // up
+            //if (key = 119) { let direction = 1; }
+            //if (key = 133) { let direction = 2; } // down
+            //if (key = 115) { let direction = 2; }
+            //if (key = 130) { let direction = 1; } // left
+            //if (key = 97) { let direction = 3; }
+            //if (key = 132) { let direction = 4; } //right
+            //if (key = 100) { let direction = 4; }
 
-            while (~(key = 0)) {
+            while (~((key = 0) | (key = 81))) {
                 let key = Keyboard.keyPressed();
-                do moveFugu();
+                if (key = 81) { let exit = true; }
+                if ((key = 130) | (key = 131) | (key = 132) | (key = 133)) {
+                    let direction = key - 129;
+                    do moveFugu();
+                }
             }
+
+            //while (~(key = 0)) {
+            //    let key = Keyboard.keyPressed();
+            //    do moveFugu();
+            //}
         }
         return;
     }

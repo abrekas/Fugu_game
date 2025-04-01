@@ -1,11 +1,13 @@
 function FuguGame.new 0
-    push constant 1
+    push constant 2
     call Memory.alloc 1
     pop pointer 0
     push constant 0
     push constant 0
     call Fugu.new 2
     pop this 0
+    push constant 0
+    pop this 1
     push pointer 0
     return
 function FuguGame.dispose 0
@@ -17,5 +19,126 @@ function FuguGame.dispose 0
     push pointer 0
     call Memory.deAlloc 1
     pop temp 0
+    push constant 0
+    return
+function FuguGame.moveFugu 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push constant 1
+    eq
+    not
+    if-goto FuguGame_1
+    push this 0
+    call Fugu.moveLeft 1
+    pop temp 0
+    goto FuguGame_0
+label FuguGame_1
+label FuguGame_0
+    push this 1
+    push constant 2
+    eq
+    not
+    if-goto FuguGame_3
+    push this 0
+    call Fugu.moveUp 1
+    pop temp 0
+    goto FuguGame_2
+label FuguGame_3
+label FuguGame_2
+    push this 1
+    push constant 3
+    eq
+    not
+    if-goto FuguGame_5
+    push this 0
+    call Fugu.moveRight 1
+    pop temp 0
+    goto FuguGame_4
+label FuguGame_5
+label FuguGame_4
+    push this 1
+    push constant 4
+    eq
+    not
+    if-goto FuguGame_7
+    push this 0
+    call Fugu.moveDown 1
+    pop temp 0
+    goto FuguGame_6
+label FuguGame_7
+label FuguGame_6
+    push constant 5
+    call Sys.wait 1
+    pop temp 0
+    push constant 0
+    return
+function FuguGame.run 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 1
+label FuguGame_8
+    push local 1
+    not
+    not
+    if-goto FuguGame_9
+    push constant 1
+    pop local 0
+label FuguGame_10
+    push local 0
+    push constant 0
+    eq
+    push local 0
+    push constant 81
+    eq
+    or
+    not
+    not
+    if-goto FuguGame_11
+    call Keyboard.keyPressed 0
+    pop local 0
+    push local 0
+    push constant 81
+    eq
+    not
+    if-goto FuguGame_13
+    push constant 1
+    neg
+    pop local 1
+    goto FuguGame_12
+label FuguGame_13
+label FuguGame_12
+    push local 0
+    push constant 130
+    eq
+    push local 0
+    push constant 131
+    eq
+    or
+    push local 0
+    push constant 132
+    eq
+    or
+    push local 0
+    push constant 133
+    eq
+    or
+    not
+    if-goto FuguGame_15
+    push local 0
+    push constant 129
+    sub
+    pop this 1
+    push pointer 0
+    call FuguGame.moveFugu 1
+    pop temp 0
+    goto FuguGame_14
+label FuguGame_15
+label FuguGame_14
+    goto FuguGame_10
+label FuguGame_11
+    goto FuguGame_8
+label FuguGame_9
     push constant 0
     return
