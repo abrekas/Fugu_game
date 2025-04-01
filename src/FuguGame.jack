@@ -1,9 +1,11 @@
 /** game state */
 class FuguGame {
     field Fugu fugu;
+    field int direction;
 
     constructor FuguGame new(){
         let fugu = Fugu.new(0,0);
+        let direction = 0;
         return this;
     }
 
@@ -12,4 +14,42 @@ class FuguGame {
         do Memory.deAlloc(this);
         return;
     }
+
+    method void moveFugu(){
+        if (direction = 1) { do fugu.moveUp(); }
+        if (direction = 2) { do fugu.moveDown(); }
+        if (direction = 3) { do fugu.moveLeft(); }
+        if (direction = 4) { do fugu.moveRight(); }
+        do Sys.wait(5);
+        return;
+    }
+
+    method void run(){
+        var char key;
+        var boolean exit;
+        let exit = false;
+
+        while (~exit){
+            while (key = 0) {
+                let key = Keyboard.keyPressed();
+                do moveFugu();
+            }
+            if (key = 81) { let exit = true; }
+            if (key = 131) { let direction = 1; }
+            if (key = 119) { let direction = 1; }
+            if (key = 133) { let direction = 2; }
+            if (key = 115) { let direction = 2; }
+            if (key = 130) { let direction = 3; }
+            if (key = 97) { let direction = 3; }
+            if (key = 132) { let direction = 4; }
+            if (key = 100) { let direction = 4; }
+
+            while (~(key = 0)) {
+                let key = Keyboard.keyPressed();
+                do moveFugu();
+            }
+        }
+        return;
+    }
+
 }
