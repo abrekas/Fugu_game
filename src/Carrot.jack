@@ -3,13 +3,16 @@ class Carrot{
     field int carrot_width;
     field int carrot_height; 
 
-    constructor Fugu new(int Ax, int Ay)
+    constructor Carrot new(int Ax, int Ay)
     {
         let x = Ax;
         let y = Ay;
         let carrot_width = 12;
         let carrot_height = 10;
-        do draw(52);
+        do draw(100);
+        do draw(101);
+        do draw(102);
+
         return this;
     }
 

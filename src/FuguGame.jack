@@ -2,15 +2,18 @@
 class FuguGame {
     field Fugu fugu;
     field int direction;
+    field Carrot carrot;
 
     constructor FuguGame new(){
         let fugu = Fugu.new(0,0);
+        let carrot = Carrot.new(0,0);
         let direction = 0;
         return this;
     }
 
     method void dispose(){
         do fugu.dispose();
+        do carrot.dispose();
         do Memory.deAlloc(this);
         return;
     }
