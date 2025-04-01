@@ -7,8 +7,8 @@ class Carrot{
     {
         let x = Ax;
         let y = Ay;
-        let carrot_width = 12;
-        let carrot_height = 10;
+        let carrot_width = 9;
+        let carrot_height = 16;
         do draw(100);
         do draw(101);
         do draw(102);
