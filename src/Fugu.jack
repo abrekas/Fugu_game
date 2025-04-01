@@ -11,8 +11,8 @@ class Fugu{
     {
         let x = Ax;
         let y = Ay;
-        let fugu_width = 12;
-        let fugu_height = 10;
+        let fugu_width = 16;
+        let fugu_height = 13;
         do draw(0);
         return this;
     }
@@ -81,38 +81,38 @@ class Fugu{
     
     
     method void moveUp() {
-        var int newLocation;
-        do erase(y * 32 + x);
-        let y = y - 2;
-        let newLocation = y * 32 + x;
-        do draw(newLocation);
+        if (y > 1) {
+            do erase(y * 32 + x);
+            let y = y - 2;
+            do draw(y * 32 + x);
+        }
         return;
     }
 
     method void moveDown() {
-        var int newLocation;
-        do erase(y * 32 + x);
-        let y = y + 2;
-        let newLocation = y * 32 + x;
-        do draw(newLocation);
+        if (y + fugu_height < 255) {
+            do erase(y * 32 + x);
+            let y = y + 2;
+            do draw(y * 32 + x);
+        }
         return;
     }
 
     method void moveLeft() {
-        var int newLocation;
-        do erase(y * 32 + x);
-        let x = x - 1;
-        let newLocation = y * 32 + x;
-        do draw(newLocation);
+        if (x > 0) {
+            do erase(y * 32 + x);
+            let x = x - 1;
+            do draw(y * 32 + x);
+        }
         return;
     }
 
     method void moveRight() {
-        var int newLocation;
-        do erase(y * 32 + x);
-        let x = x + 1;
-        let newLocation = y * 32 + x;
-        do draw(newLocation);
+        if (x < 31) {
+            do erase(y * 32 + x);
+            let x = x + 1;
+            do draw(y * 32 + x);
+        }
         return;
     }
 
