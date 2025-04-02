@@ -6,7 +6,7 @@ class FuguGame {
 
     constructor FuguGame new(){
         let fugu = Fugu.new(0,0);
-        let carrot = Carrot.new(0,0);
+        let carrot = Carrot.new(40,7);
         let direction = 0;
         return this;
     }
@@ -18,36 +18,42 @@ class FuguGame {
         return;
     }
 
+    method int calc_location(int Ay, int Ax){
+        //16-pixel grid
+        //256 in height, 32 in width
+        return Ay*32 + Ax;
+    }
+
     method void moveFugu(){
         if (direction = 1) { do fugu.moveLeft(); }
         if (direction = 2) { do fugu.moveUp(); }
         if (direction = 3) { do fugu.moveRight(); }
         if (direction = 4) { do fugu.moveDown(); }
-        do Sys.wait(5);
         return;
-    }
+    }    
 
     method void run(){
         var char key;
         var boolean exit;
+        var int car_l1;
+        var int car_l2;
+        var boolean even_check;
         let exit = false;
+        do carrot.draw(calc_location(carrot.getY(), carrot.getX()));
+        do carrot.draw(calc_location(100, 20));
+        do carrot.draw(calc_location(152, 1));
+
+        
+
+
+        let car_l1 = 0;
+        let car_l2 = 3;
+        let even_check = true;
+
 
         while (~exit){
             let key = 1;
-            //while (key = 0) {
-            //    let key = Keyboard.keyPressed();
-            //    do moveFugu();
-            //}
-            //if (key = 0) { let direction = 0; }
-            //if (key = 81) { let exit = true; }
-            //if (key = 131) { let direction = 2; } // up
-            //if (key = 119) { let direction = 1; }
-            //if (key = 133) { let direction = 2; } // down
-            //if (key = 115) { let direction = 2; }
-            //if (key = 130) { let direction = 1; } // left
-            //if (key = 97) { let direction = 3; }
-            //if (key = 132) { let direction = 4; } //right
-            //if (key = 100) { let direction = 4; }
+            
 
             while (~((key = 0) | (key = 81))) {
                 let key = Keyboard.keyPressed();
@@ -55,13 +61,27 @@ class FuguGame {
                 if ((key = 130) | (key = 131) | (key = 132) | (key = 133)) {
                     let direction = key - 129;
                     do moveFugu();
+                    //должно меняться: 0 и 1, 1 и 0
+                    do carrot.erase(calc_location(100+car_l1, 20));
+                    do carrot.draw(calc_location(100+car_l2, 20));
+                    do Sys.wait(5);
+
+                    //let fugu.x = 10; нельзя так делать
+                    
+
+                    if (even_check){
+                        let car_l1 = 3;
+                        let car_l2 = 0;
+                    }
+                    if (~even_check){
+                        let car_l1 = 0;
+                        let car_l2 = 3;
+                    }
+                    let even_check = ~even_check;
+
                 }
             }
 
-            //while (~(key = 0)) {
-            //    let key = Keyboard.keyPressed();
-            //    do moveFugu();
-            //}
         }
         return;
     }
