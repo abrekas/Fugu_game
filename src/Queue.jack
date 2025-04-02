@@ -1,0 +1,6 @@
+class Queue {
+    constructor Queue new(int size){
+        var queue;
+        let queue = Array
+    }
+}

@@ -1,0 +1,6 @@
+class Bubble {
+    field int lifetime;
+    constructor Bubble new(){
+        let lifetime = 50;
+    }
+}
