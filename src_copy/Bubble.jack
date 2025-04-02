@@ -1,0 +1,118 @@
+class Bubble {
+    field int lifetime;
+    field int x;
+    field int y;
+    field int direction;  // 1=left, 2=up, 3=right, 4=down
+    field boolean active;
+    field int move_counter;  // Counter for horizontal movement delay
+
+    constructor Bubble new(int startX, int startY, int dir) {
+        let lifetime = 25; 
+        let x = startX;
+        let y = startY;
+        let direction = dir;
+        let active = true;
+        let move_counter = 0;  
+        return this;
+    }
+
+    method int getX() {
+        return x;
+    }
+
+    method int getY() {
+        return y;
+    }
+
+    method boolean isActive() {
+        return active;
+    }
+
+    method void draw() {
+        var int location;
+        let location = y * 32 + x;
+        let location = 16384 + location;
+        do Memory.poke(location + 0, 14336);
+        do Memory.poke(location + 32, 25600);
+        do Memory.poke(location + 64, -13824);
+        do Memory.poke(location + 96, -32242);
+        do Memory.poke(location + 128, -32239);
+        do Memory.poke(location + 160, 17425);
+        do Memory.poke(location + 192, 15353);
+        do Memory.poke(location + 224, 1054);
+        do Memory.poke(location + 256, 2060);
+        do Memory.poke(location + 288, 2052);
+        do Memory.poke(location + 320, 2052);
+        do Memory.poke(location + 352, 2052);
+        do Memory.poke(location + 384, 2436);
+        do Memory.poke(location + 416, 2436);
+        do Memory.poke(location + 448, 1032);
+        do Memory.poke(location + 480, 1008);
+        return;
+    }
+
+    method void erase() {
+        var int location;
+        let location = y * 32 + x;
+        let location = 16384 + location;
+        do Memory.poke(location + 0, 0);
+        do Memory.poke(location + 32, 0);
+        do Memory.poke(location + 64, 0);
+        do Memory.poke(location + 96, 0);
+        do Memory.poke(location + 128, 0);
+        do Memory.poke(location + 160, 0);
+        do Memory.poke(location + 192, 0);
+        do Memory.poke(location + 224, 0);
+        do Memory.poke(location + 256, 0);
+        do Memory.poke(location + 288, 0);
+        do Memory.poke(location + 320, 0);
+        do Memory.poke(location + 352, 0);
+        do Memory.poke(location + 384, 0);
+        do Memory.poke(location + 416, 0);
+        do Memory.poke(location + 448, 0);
+        do Memory.poke(location + 480, 0);
+        return;
+    }
+
+    method boolean update() {
+        if (~active) {
+            return false;
+        }
+        
+        do erase();
+        
+        if ((direction = 1) | (direction = 3)) {
+            let move_counter = move_counter + 1;
+            if (move_counter = 3) {  
+                if (direction = 1) { let x = x - 1; }
+                if (direction = 3) { let x = x + 1; }
+                let move_counter = 0;
+            }
+        }
+        
+        if (direction = 2) { let y = y - 3; }
+        if (direction = 4) { let y = y + 3; }
+        
+        if ((x < 0) | (x > 31) | (y < 0)) {
+            let active = false;
+            return false;
+        }
+        
+        let lifetime = lifetime - 1;
+        if (lifetime < 1) {
+            let active = false;
+            return false;
+        }
+        
+        do draw();
+        return true;
+    }
+
+    method void dispose() {
+        if (active) {
+            do erase();
+        }
+        do Memory.deAlloc(this);
+        return;
+    }
+}

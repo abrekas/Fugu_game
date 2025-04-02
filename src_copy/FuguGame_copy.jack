@@ -1,0 +1,198 @@
+/** game state */
+class FuguGame_copy {
+    field Fugu fugu;
+    field int direction;
+    field Carrot carrot;
+    field Bubble bubble;
+    field boolean bubble_active;
+    field boolean carrot_destroyed;
+    //field Array carrots;
+    //field int carrots_len;
+     
+
+    constructor FuguGame_copy new(){
+        let fugu = Fugu.new(0,0);
+        //let carrots_len = 10;
+        //let carrots = Array.new(carrots_len);
+        //do carrots_assemble();
+        let carrot = Carrot.new(40,7);
+        let bubble = Bubble.new(0, 0, 0);
+        let bubble_active = false;
+        let carrot_destroyed = false;
+        let direction = 0;
+        return this;
+    }
+
+    method void dispose(){
+        do fugu.dispose();
+        do carrot.dispose();
+        if (bubble_active) {
+            do bubble.dispose();
+        }
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int calc_location(int Ay, int Ax){
+        //16-pixel grid
+        //256 in height, 32 in width
+        return Ay*32 + Ax;
+    }
+
+    method void moveFugu(){
+        if (direction = 1) { do fugu.moveLeft(); }
+        if (direction = 2) { do fugu.moveUp(); }
+        if (direction = 3) { do fugu.moveRight(); }
+        if (direction = 4) { do fugu.moveDown(); }
+        return;
+    }
+
+    method boolean IsCollided_LEGACY () {
+        var int xc;
+        var int yc;
+        var int car_h;
+        var int xf;
+        var int yf;
+        var int fugu_h;
+        let xc = carrot.getX();
+        let yc = carrot.getY();
+        let xf = fugu.getX();
+        let yf = fugu.getY();
+        let car_h = carrot.getHeight();
+        let fugu_h = fugu.getHeight();
+        return ((xc = xf) & ( ((yc - 1) < (yf + fugu_h - 1)) & (((yf + fugu_h - 1) < (yc + car_h))  | ( ((yc + car_h) > yf) & (yf > (yc - 1)) ) )));
+    }
+
+    //method boolean IsCollided (int x1, int y1, int h1, int x2, int y2, int h2) {
+    //    //1 - gets destroyed, 2 - survives and thrives
+    //    return ((x2 = x1) & ( ((y2 - 1) < (y1 + h1 - 1)) & (((y1 + h1 - 1) < (y2 + h2))  | ( ((y2 + h2) > y1) & (y1 > (y2 - 1)) ) )));
+    //}
+
+    //method void moveCarrots(){
+    //    var int 
+    //}
+
+    //method void moveCarrot(){
+    //    // находит кратчайший путь до рыбы
+    //    // по алгоритму построения прямой (8 штук его делать не нужно, 
+    //    // просто переставлять аргументы местами и для +-1 сделать отдельный параметр)
+    //}
+
+    method boolean IsBubbleCollidedWithCarrot() {
+        var int xc, yc, car_h, xb, yb;
+        let xc = carrot.getX();
+        let yc = carrot.getY();
+        let xb = bubble.getX();
+        let yb = bubble.getY();
+        let car_h = carrot.getHeight();
+        return ((xc = xb) & ( ((yc - 1) < (yb + 1)) & (((yb + 1) < (yc + car_h))  | ( ((yc + car_h) > yb) & (yb > (yc - 1)) ) )));
+    }
+
+    method void run(){
+        //field Array carrots_is_not_displayed; //сюда пихаю boolean
+        //field Array bubbles_is_not_displayed; //сюда пихаю boolean
+        var char key;
+        var boolean exit;
+        var boolean restart;
+        var boolean isCollided;
+        var String str;
+        var int car_l;
+        var boolean even_check;
+        //var Array bubbles;
+        //var int bubbles_len;
+
+        //var int carrots_used;
+        
+        let exit = false;
+        let isCollided = false;
+        //let carrots_used = 0;
+        do carrot.draw();
+        do fugu.draw();
+        let str = "You loser :)))";
+        do Output.moveCursor(4, 4);
+        
+        //рыба может попасть на морковку тоггда и только тогда когда её х совпадает с х морковки
+        //по у очевидно: если у морковки меньше чем у+fugu_height или carrot_y+carrot_height > fugu_y
+        //т.е. попадание <=> ((car_x = fugu_x) & 
+        // ((car_y - 1 < fugu_y + fugu_h - 1 < car_y + car_h) 
+        // | (car_y + car_h > fugu_y > car_y - 1)))
+
+        // аналогично для пузыря и морковки и для пузыря и рыбы 
+        // (рыба ест пузырь, пузырь ест морковь, морковь ест рыбу)
+
+        let car_l = 3;
+        let even_check = true;
+
+        //морковка по кругу бежит
+
+        while (~exit){
+            let key = Keyboard.keyPressed();
+            
+            if (key = 81) { let exit = true; }
+            
+            if ((key = 130) | (key = 131) | (key = 132) | (key = 133)) {
+                let direction = key - 129;
+                do moveFugu();
+                do fugu.draw();
+                if (~carrot_destroyed) {
+                    do carrot.erase();
+                    do carrot.set_YX(carrot.getY()+car_l, carrot.getX());
+                    do carrot.draw();
+                }
+                if (~carrot_destroyed) {
+                    let isCollided = IsCollided_LEGACY();
+                    if (isCollided){
+                        do fugu.erase();
+                    }
+                }
+                let car_l = -car_l;
+            }
+
+            if ((key = 32) & (~bubble_active)) {  
+                if (bubble_active) {
+                    do bubble.dispose();
+                }
+                let bubble = Bubble.new(fugu.getX(), fugu.getY(), direction);
+                let bubble_active = true;
+                do fugu.draw();
+            }
+
+            if (bubble_active) {
+                let bubble_active = bubble.update();
+                do fugu.draw();
+                
+                if (bubble_active & (~carrot_destroyed)) {
+                    if (IsBubbleCollidedWithCarrot()) {
+                        do carrot.erase();
+                        do carrot.dispose();
+                        let carrot_destroyed = true;
+                    }
+                }
+            }
+
+            if (isCollided){
+                do Output.printString(str);
+                do str.dispose();
+                let key = Keyboard.keyPressed();
+                if (key = 53){
+                    do Screen.clearScreen();
+                    let isCollided = false;
+                    do fugu.set_YX(0,0);
+                    do fugu.draw();
+                    if (bubble_active) {
+                        do bubble.dispose();
+                        let bubble_active = false;
+                    }
+                    if (carrot_destroyed) {
+                        let carrot = Carrot.new(40, 7);
+                        let carrot_destroyed = false;
+                        do carrot.draw();
+                    }
+                }
+            }
+
+            do Sys.wait(5);
+        }
+        return;
+    }
+}
