@@ -7,12 +7,12 @@ class FuguGame_copy {
     //field int carrots_len;
      
 
-    constructor FuguGame new(){
+    constructor FuguGame_copy new(){
         let fugu = Fugu.new(0,0);
-        let carrots_len = 10;
-        let carrots = Array.new(carrots_len);
-        do carrots_assemble();
-        //let carrot = Carrot.new(40,7);
+        //let carrots_len = 10;
+        //let carrots = Array.new(carrots_len);
+        //do carrots_assemble();
+        let carrot = Carrot.new(40,7);
 
         let direction = 0;
         return this;
@@ -22,20 +22,6 @@ class FuguGame_copy {
         do fugu.dispose();
         do carrot.dispose();
         do Memory.deAlloc(this);
-        return;
-    }
-
-    method void carrots_assemble(){
-        carrots[0] = Carrot.new(3,5);
-        carrots[1] = Carrot.new(7,31);
-        carrots[2] = Carrot.new(12,14);
-        carrots[3] = Carrot.new(7,16);
-        carrots[4] = Carrot.new(6,7);
-        carrots[5] = Carrot.new(11,8);
-        carrots[6] = Carrot.new(8,4);
-        carrots[7] = Carrot.new(16,4);
-        carrots[8] = Carrot.new(14,23);
-        carrots[9] = Carrot.new(5,6);
         return;
     }
 
@@ -104,7 +90,7 @@ class FuguGame_copy {
         
         let exit = false;
         let isCollided = false;
-        let carrots_used = 0;
+        //let carrots_used = 0;
         do carrot.draw();
         let str = "You loser :)))";
         do Output.moveCursor(4, 4);
@@ -142,7 +128,7 @@ class FuguGame_copy {
                     let direction = key - 129;
                     do moveFugu();
                     //должно меняться: 0 и 1, 1 и 0
-                    do moveCarrots();
+                    //do moveCarrots();
                     do carrot.erase();
                     do carrot.set_YX(carrot.getY()+car_l, carrot.getX());
                     do carrot.draw();

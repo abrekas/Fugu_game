@@ -26,16 +26,16 @@ class FuguGame {
     }
 
     method void carrots_assemble(){
-        carrots[0] = Carrot.new(3,5);
-        carrots[1] = Carrot.new(7,31);
-        carrots[2] = Carrot.new(12,14);
-        carrots[3] = Carrot.new(7,16);
-        carrots[4] = Carrot.new(6,7);
-        carrots[5] = Carrot.new(11,8);
-        carrots[6] = Carrot.new(8,4);
-        carrots[7] = Carrot.new(16,4);
-        carrots[8] = Carrot.new(14,23);
-        carrots[9] = Carrot.new(5,6);
+        let carrots[0] = Carrot.new(3,5);
+        let carrots[1] = Carrot.new(7,31);
+        let carrots[2] = Carrot.new(12,14);
+        let carrots[3] = Carrot.new(7,16);
+        let carrots[4] = Carrot.new(6,7);
+        let carrots[5] = Carrot.new(11,8);
+        let carrots[6] = Carrot.new(8,4);
+        let carrots[7] = Carrot.new(16,4);
+        let carrots[8] = Carrot.new(14,23);
+        let carrots[9] = Carrot.new(5,6);
         return;
     }
 
@@ -74,9 +74,9 @@ class FuguGame {
         return ((x2 = x1) & ( ((y2 - 1) < (y1 + h1 - 1)) & (((y1 + h1 - 1) < (y2 + h2))  | ( ((y2 + h2) > y1) & (y1 > (y2 - 1)) ) )));
     }
 
-    method void moveCarrots(){
-        var int 
-    }
+    //method void moveCarrots(){
+    //    var int 
+    //}
 
     method void moveCarrot(){
         // находит кратчайший путь до рыбы
