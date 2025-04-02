@@ -5,6 +5,7 @@ class FuguGame {
     //field Carrot carrot;
     field Array carrots;
     field int carrots_len;
+    field int final_carrots_used;
      
 
     constructor FuguGame new(){
@@ -20,7 +21,7 @@ class FuguGame {
 
     method void dispose(){
         do fugu.dispose();
-        do carrot.dispose();
+        
         do Memory.deAlloc(this);
         return;
     }
@@ -69,24 +70,46 @@ class FuguGame {
         return ((xc = xf) & ( ((yc - 1) < (yf + fugu_h - 1)) & (((yf + fugu_h - 1) < (yc + car_h))  | ( ((yc + car_h) > yf) & (yf > (yc - 1)) ) )));
     }
 
+    method boolean IsCollided_LEGACY_Multiple (int cars_used) {
+        var int i;
+        var boolean isCollided;
+        let i = 0;
+        let isCollided = false;
+        while (i < cars_used){
+            let isCollided = IsCollided_LEGACY(carrots[i]);
+        }
+        return isCollided;
+    }
+
     method boolean IsCollided (int x1, int y1, int h1, int x2, int y2, int h2) {
         //1 - gets destroyed, 2 - survives and thrives
         return ((x2 = x1) & ( ((y2 - 1) < (y1 + h1 - 1)) & (((y1 + h1 - 1) < (y2 + h2))  | ( ((y2 + h2) > y1) & (y1 > (y2 - 1)) ) )));
     }
 
-    //method void moveCarrots(){
-    //    var int 
-    //}
+    method void moveCarrots(int count, int carrot_shift){
+        var int i;
+        let i = 0;
+        while (i < count){
+            do moveCarrot(carrots[i], carrot_shift);
+            let i = i+1;
+        }
+        return;
+    }
 
-    method void moveCarrot(){
+    method void moveCarrot(Carrot carrot, int car_l){
         // находит кратчайший путь до рыбы
         // по алгоритму построения прямой (8 штук его делать не нужно, 
         // просто переставлять аргументы местами и для +-1 сделать отдельный параметр)
+        do carrot.erase();
+        do carrot.set_YX(carrot.getY()+car_l, carrot.getX());
+        do carrot.draw();
+        return;
     }
 
     method void run(){
-        field Array carrots_is_not_displayed; //сюда пихаю boolean
-        field Array bubbles_is_not_displayed; //сюда пихаю boolean
+
+        var Array carrots_is_not_displayed; //сюда пихаю boolean
+        var Array bubbles_is_not_displayed; //сюда пихаю boolean
         var char key;
         var boolean exit;
         var boolean restart;
@@ -96,6 +119,7 @@ class FuguGame {
         var boolean even_check;
         var Array bubbles;
         var int bubbles_len;
+        var Carrot carrot_temp;
 
         var int carrots_used;
         
@@ -105,7 +129,8 @@ class FuguGame {
         let exit = false;
         let isCollided = false;
         let carrots_used = 0;
-        do carrot.draw();
+        //do carrot.draw();
+        let str = "You loser :)))";
         
 
         
@@ -131,42 +156,49 @@ class FuguGame {
             while (~((key = 0) | (exit = true) | (isCollided = true))) {
                 let key = Keyboard.keyPressed();
                 if (key = 81) { let exit = true; }
-                //if (key = 67) & (carrots_used < (carrots_len)) {
-                //    let carrots_used = carrots_used + 1;
-                //    do (carrots[(carrots_used - 1)]).draw();
-                //    do Sys.wait(5);
-                //}
+
+                if ((key = 67) & (carrots_used < (carrots_len))) {
+                    let carrots_used = carrots_used + 1;
+                    let carrot_temp = carrots[(carrots_used - 1)];
+                    do carrot_temp.draw();
+                    do Sys.wait(100);
+                }
+
                 if ((key = 130) | (key = 131) | (key = 132) | (key = 133)) {
                     let direction = key - 129;
                     do moveFugu();
                     //должно меняться: 0 и 1, 1 и 0
-                    do moveCarrots();
-                    do carrot.erase();
-                    do carrot.set_YX(carrot.getY()+car_l, carrot.getX());
-                    do carrot.draw();
-                    let isCollided = IsCollided_LEGACY();
-                    if (isCollided){
-                        do fugu.erase();
-                    }
-                    do Sys.wait(5);
+                    do moveCarrots(carrots_used, car_l);
+                    
+                    do Sys.wait(30);
                     
 
                     //let fugu.x = 10; нельзя так делать
-                    
-
+                    let isCollided = IsCollided_LEGACY_Multiple(carrots_used);
+                    //if (isCollided){
+                    //    do fugu.erase();
+                    //}
                     let car_l = -car_l;
+
+                    
                 }
+                
+                    
+                    
+                
             }
             if (isCollided){
                 
-                let str = "You loser :)))";
+                
                 do Output.moveCursor(4, 4);
                 do Output.printString(str);
                 do str.dispose();
                 let key = Keyboard.keyPressed();
                 if (key = 53){
                     let isCollided = false;
+                    do Screen.clearScreen();
                     do fugu.set_YX(0,0);
+                    do fugu.draw();
                 }
             }
 

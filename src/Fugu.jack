@@ -40,14 +40,14 @@ class Fugu{
     method int get_location(int Ay, int Ax){
         //16-pixel grid
         //256 in height, 32 in width
-        if ((Ax > -1) & (Ax < 32) & (Ay > -1) & (Ay + fugu_height < 257)) { return Ay*32 + Ax; }
+        if ((Ax > -1) & (Ax < 32) & (Ay > -1) & (Ay + fugu_height < 256)) { return Ay*32 + Ax; }
         
         return 52;
     }
 
     method void set_YX(int new_y, int new_x){
         if ((new_x > -1) & (new_x < 32)) { let x = new_x; }
-        if ((new_y > -1) & (new_y + fugu_height < 257)) { let y = new_y; }
+        if ((new_y > -1) & (new_y + fugu_height < 256)) { let y = new_y; }
         return;
     }
 

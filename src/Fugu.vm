@@ -62,7 +62,7 @@ function Fugu.get_location 0
     push argument 1
     push this 3
     add
-    push constant 257
+    push constant 256
     lt
     and
     not
@@ -103,7 +103,7 @@ label Fugu_2
     push argument 1
     push this 3
     add
-    push constant 257
+    push constant 256
     lt
     and
     not
