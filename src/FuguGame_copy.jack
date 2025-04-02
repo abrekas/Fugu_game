@@ -1,10 +1,10 @@
 /** game state */
-class FuguGame {
+class FuguGame_copy {
     field Fugu fugu;
     field int direction;
-    //field Carrot carrot;
-    field Array carrots;
-    field int carrots_len;
+    field Carrot carrot;
+    //field Array carrots;
+    //field int carrots_len;
      
 
     constructor FuguGame new(){
@@ -53,7 +53,7 @@ class FuguGame {
         return;
     }
 
-    method boolean IsCollided_LEGACY (Carrot carrot) {
+    method boolean IsCollided_LEGACY () {
         var int xc;
         var int yc;
         var int car_h;
@@ -69,24 +69,24 @@ class FuguGame {
         return ((xc = xf) & ( ((yc - 1) < (yf + fugu_h - 1)) & (((yf + fugu_h - 1) < (yc + car_h))  | ( ((yc + car_h) > yf) & (yf > (yc - 1)) ) )));
     }
 
-    method boolean IsCollided (int x1, int y1, int h1, int x2, int y2, int h2) {
-        //1 - gets destroyed, 2 - survives and thrives
-        return ((x2 = x1) & ( ((y2 - 1) < (y1 + h1 - 1)) & (((y1 + h1 - 1) < (y2 + h2))  | ( ((y2 + h2) > y1) & (y1 > (y2 - 1)) ) )));
-    }
+    //method boolean IsCollided (int x1, int y1, int h1, int x2, int y2, int h2) {
+    //    //1 - gets destroyed, 2 - survives and thrives
+    //    return ((x2 = x1) & ( ((y2 - 1) < (y1 + h1 - 1)) & (((y1 + h1 - 1) < (y2 + h2))  | ( ((y2 + h2) > y1) & (y1 > (y2 - 1)) ) )));
+    //}
 
-    method void moveCarrots(){
-        var int 
-    }
+    //method void moveCarrots(){
+    //    var int 
+    //}
 
-    method void moveCarrot(){
-        // находит кратчайший путь до рыбы
-        // по алгоритму построения прямой (8 штук его делать не нужно, 
-        // просто переставлять аргументы местами и для +-1 сделать отдельный параметр)
-    }
+    //method void moveCarrot(){
+    //    // находит кратчайший путь до рыбы
+    //    // по алгоритму построения прямой (8 штук его делать не нужно, 
+    //    // просто переставлять аргументы местами и для +-1 сделать отдельный параметр)
+    //}
 
     method void run(){
-        field Array carrots_is_not_displayed; //сюда пихаю boolean
-        field Array bubbles_is_not_displayed; //сюда пихаю boolean
+        //field Array carrots_is_not_displayed; //сюда пихаю boolean
+        //field Array bubbles_is_not_displayed; //сюда пихаю boolean
         var char key;
         var boolean exit;
         var boolean restart;
@@ -94,10 +94,10 @@ class FuguGame {
         var String str;
         var int car_l;
         var boolean even_check;
-        var Array bubbles;
-        var int bubbles_len;
+        //var Array bubbles;
+        //var int bubbles_len;
 
-        var int carrots_used;
+        //var int carrots_used;
         
 
 
@@ -106,6 +106,8 @@ class FuguGame {
         let isCollided = false;
         let carrots_used = 0;
         do carrot.draw();
+        let str = "You loser :)))";
+        do Output.moveCursor(4, 4);
         
 
         
@@ -158,9 +160,7 @@ class FuguGame {
                 }
             }
             if (isCollided){
-                
-                let str = "You loser :)))";
-                do Output.moveCursor(4, 4);
+
                 do Output.printString(str);
                 do str.dispose();
                 let key = Keyboard.keyPressed();

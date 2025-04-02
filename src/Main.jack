@@ -5,8 +5,10 @@ class Main {
     function void main () {
         var boolean game_state;
         var FuguGame game;
+        var FuguGame_copy game1;
 
         let game = FuguGame.new();
+        //let game1 = FuguGame_copy.new();   
         do game.run();
         do game.dispose();
         return;
