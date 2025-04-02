@@ -2,16 +2,35 @@ class Bubble {
     field int lifetime;
     field int x;
     field int y;
+    field int direction;  // 1=left, 2=up, 3=right, 4=down
+    field boolean active;
+    field int move_counter;  // Counter for horizontal movement delay
 
-    constructor Bubble new(int startX, int startY) {
-        let lifetime = 50;
+    constructor Bubble new(int startX, int startY, int dir) {
+        let lifetime = 25; 
         let x = startX;
         let y = startY;
-        do draw(y * 32 + x);
+        let direction = dir;
+        let active = true;
+        let move_counter = 0;  
         return this;
     }
 
-    method void draw(int location) {
+    method int getX() {
+        return x;
+    }
+
+    method int getY() {
+        return y;
+    }
+
+    method boolean isActive() {
+        return active;
+    }
+
+    method void draw() {
+        var int location;
+        let location = y * 32 + x;
         let location = 16384 + location;
         do Memory.poke(location + 0, 14336);
         do Memory.poke(location + 32, 25600);
@@ -32,7 +51,9 @@ class Bubble {
         return;
     }
 
-    method void erase(int location) {
+    method void erase() {
+        var int location;
+        let location = y * 32 + x;
         let location = 16384 + location;
         do Memory.poke(location + 0, 0);
         do Memory.poke(location + 32, 0);
@@ -53,18 +74,44 @@ class Bubble {
         return;
     }
 
-    method boolean moveRight() {
-        if (x > 0) {
-            do erase(y * 32 + x);
-            let x = x - 1;
-            do draw(y * 32 + x);
-            return true;
+    method boolean update() {
+        if (~active) {
+            return false;
         }
-        return false;
+        
+        do erase();
+        
+        if ((direction = 1) | (direction = 3)) {
+            let move_counter = move_counter + 1;
+            if (move_counter = 3) {  
+                if (direction = 1) { let x = x - 1; }
+                if (direction = 3) { let x = x + 1; }
+                let move_counter = 0;
+            }
+        }
+        
+        if (direction = 2) { let y = y - 3; }
+        if (direction = 4) { let y = y + 3; }
+        
+        if ((x < 0) | (x > 31) | (y < 0)) {
+            let active = false;
+            return false;
+        }
+        
+        let lifetime = lifetime - 1;
+        if (lifetime < 1) {
+            let active = false;
+            return false;
+        }
+        
+        do draw();
+        return true;
     }
 
     method void dispose() {
-        do erase(y * 32 + x);
+        if (active) {
+            do erase();
+        }
         do Memory.deAlloc(this);
         return;
     }
