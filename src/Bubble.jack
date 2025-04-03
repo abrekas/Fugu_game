@@ -86,15 +86,6 @@ class Bubble {
         }
         
         do erase();
-        
-        // if ((direction = 1) | (direction = 3)) {
-        //     let move_counter = move_counter + 1;
-        //     if (move_counter = 3) {
-        //         if (direction = 1) { let x = x - 1; }
-        //         if (direction = 3) { let x = x + 1; }
-        //         let move_counter = 0;
-        //     }
-        // }
         if (direction = 1) { let x = x - 1; }
         if (direction = 3) { let x = x + 1; }
         if (direction = 2) { let y = y - 1; }

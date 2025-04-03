@@ -15,9 +15,8 @@ class Fugu{
         let y = Ay;
         let fugu_width = 16;
         let fugu_height = 13;
-        let vert_speed = 16;
+        let vert_speed = 1;
         let hor_speed = 1;
-        do draw_LEGACY(0);
         return this;
     }
 
@@ -39,15 +38,15 @@ class Fugu{
 
     method int get_location(int Ay, int Ax){
         //16-pixel grid
-        //256 in height, 32 in width
-        if ((Ax > -1) & (Ax < 32) & (Ay > -1) & (Ay + fugu_height < 256)) { return Ay*32 + Ax; }
+        //16 in height, 32 in width
+        if ((Ax > -1) & (Ax < 32) & (Ay > -1) & (Ay + 1 < 16)) { return Ay*32 * 16 + Ax; }
         
         return 52;
     }
 
     method void set_YX(int new_y, int new_x){
         if ((new_x > -1) & (new_x < 32)) { let x = new_x; }
-        if ((new_y > -1) & (new_y + fugu_height < 256)) { let y = new_y; }
+        if ((new_y > -1) & (new_y + 1 < 16)) { let y = new_y; }
         return;
     }
 
@@ -96,40 +95,48 @@ class Fugu{
         do Memory.poke(memAddress + 384, 0);
         return;
     }
+
+    method void moveFugu(int direction){
+        if (direction = 1) { do moveLeft(); }
+        if (direction = 2) { do moveUp(); }
+        if (direction = 3) { do moveRight(); }
+        if (direction = 4) { do moveDown(); }
+        return;
+    }
     
     
     method void moveUp() {
         if (y > (vert_speed - 1)) {
-            do erase_LEGACY(y * 32 + x);
+            do erase_LEGACY(y * 32 * 16 + x);
             let y = y - vert_speed;
-            do draw_LEGACY(y * 32 + x);
+            do draw_LEGACY(y * 32 * 16 + x);
         }
         return;
     }
 
     method void moveDown() {
-        if (y + fugu_height < (256 - vert_speed + 1)) {
-            do erase_LEGACY(y * 32 + x);
+        if (y + 1 < (16 - vert_speed + 1)) {
+            do erase_LEGACY(y * 32 * 16 + x);
             let y = y + vert_speed;
-            do draw_LEGACY(y * 32 + x);
+            do draw_LEGACY(y * 32 * 16 + x);
         }
         return;
     }
 
     method void moveLeft() {
         if (x > 0) {
-            do erase_LEGACY(y * 32 + x);
-            let x = x - 1;
-            do draw_LEGACY(y * 32 + x);
+            do erase_LEGACY(y * 32 * 16 + x);
+            let x = x - hor_speed;
+            do draw_LEGACY(y * 32 * 16 + x);
         }
         return;
     }
 
     method void moveRight() {
         if (x < 31) {
-            do erase_LEGACY(y * 32 + x);
-            let x = x + 1;
-            do draw_LEGACY(y * 32 + x);
+            do erase_LEGACY(y * 32 * 16 + x);
+            let x = x + hor_speed;
+            do draw_LEGACY(y * 32 * 16 + x);
         }
         return;
     }
