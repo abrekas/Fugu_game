@@ -17,8 +17,7 @@ class FuguGame {
     field boolean bubble_active;
     field boolean carrot_destroyed;
     field Array carrots_destroyed;
-
-    
+    field StartsMenu menu;
      
 
     constructor FuguGame new(){
@@ -100,22 +99,13 @@ class FuguGame {
     }
 
     method void moveCarrot(Carrot carrot, int goalX, int goalY){
-        var Array ansPoint;
-        var int x, y;
-        
-        let ansPoint = Array.new(2);
-        do carrot.erase();
-        do carrot.setNextPointPosFolowwingFugu(goalX, goalY);
-
-
         // находит кратчайший путь до рыбы
         // по алгоритму построения прямой (8 штук его делать не нужно, 
         // просто переставлять аргументы местами и для +-1 сделать отдельный параметр)
-        
-        
-        
+        do carrot.erase();
+        //do carrot.set_YX(carrot.getY()+car_l, carrot.getX());
+        //do Sys.wait(5);
         do carrot.draw();
-        do Sys.wait(85);
         return;
     }
 
@@ -141,9 +131,6 @@ class FuguGame {
         
         do menu.show();
         do fugu.draw();
-
-        var int time_counter;
-        var int moveCarrot_time_delay_check;
         
         let exit = false;
         let isCollided = false;
@@ -151,8 +138,6 @@ class FuguGame {
         let str = "You lose :)))";
         let car_l = 3;
         let even_check = true;
-        let moveCarrot_time_delay_check = 1;
-        do fugu.draw();
 
         let fugu_x = 0;
         let fugu_y = 0;
@@ -164,7 +149,7 @@ class FuguGame {
 
             while (~((key = 0) | (exit = true) | (isCollided = true))) {
                 let key = Keyboard.keyPressed();
-                do Sys.wait(23);
+                do Sys.wait(30);
                 if (key = 81) { let exit = true; }
 
                 if ((key = 67) & (carrots_used < (carrots_len))) {
@@ -173,15 +158,7 @@ class FuguGame {
                     do carrot_temp.draw();
                     do Sys.wait(100);
                 }
-                if (moveCarrot_time_delay_check = 3){
-                    let moveCarrot_time_delay_check = 1;
-                }
-                if(moveCarrot_time_delay_check = 1) {
-                    do Sys.wait(20);
-                    do moveCarrots(carrots_used, fugu_x, fugu_y);
-                }
-                let moveCarrot_time_delay_check = moveCarrot_time_delay_check + 1;
-                
+                do moveCarrots(carrots_used, fugu_x, fugu_y);
 
                 if ((key = 130) | (key = 131) | (key = 132) | (key = 133)) {
                     let direction = key - 129;
