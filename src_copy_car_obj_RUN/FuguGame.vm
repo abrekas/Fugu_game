@@ -329,18 +329,29 @@ label FuguGame_10
 label FuguGame_9
     push constant 0
     return
-function FuguGame.moveCarrot 0
+function FuguGame.moveCarrot 3
     push argument 0
     pop pointer 0
+    push constant 2
+    call Array.new 1
+    pop local 0
     push argument 1
     call Carrot.erase 1
     pop temp 0
     push argument 1
+    push argument 2
+    push argument 3
+    call Carrot.setNextPointPosFolowwingFugu 3
+    pop temp 0
+    push argument 1
     call Carrot.draw 1
+    pop temp 0
+    push constant 85
+    call Sys.wait 1
     pop temp 0
     push constant 0
     return
-function FuguGame.run 16
+function FuguGame.run 18
     push argument 0
     pop pointer 0
     push constant 0
@@ -385,6 +396,11 @@ function FuguGame.run 16
     push constant 1
     neg
     pop local 8
+    push constant 1
+    pop local 17
+    push this 0
+    call Fugu.draw 1
+    pop temp 0
     push constant 0
     pop local 13
     push constant 0
@@ -418,7 +434,7 @@ label FuguGame_14
     if-goto FuguGame_15
     call Keyboard.keyPressed 0
     pop local 2
-    push constant 30
+    push constant 23
     call Sys.wait 1
     pop temp 0
     push local 2
@@ -462,12 +478,37 @@ label FuguGame_16
     goto FuguGame_18
 label FuguGame_19
 label FuguGame_18
+    push local 17
+    push constant 3
+    eq
+    not
+    if-goto FuguGame_21
+    push constant 1
+    pop local 17
+    goto FuguGame_20
+label FuguGame_21
+label FuguGame_20
+    push local 17
+    push constant 1
+    eq
+    not
+    if-goto FuguGame_23
+    push constant 20
+    call Sys.wait 1
+    pop temp 0
     push pointer 0
     push local 12
     push local 13
     push local 14
     call FuguGame.moveCarrots 4
     pop temp 0
+    goto FuguGame_22
+label FuguGame_23
+label FuguGame_22
+    push local 17
+    push constant 1
+    add
+    pop local 17
     push local 2
     push constant 130
     eq
@@ -484,7 +525,7 @@ label FuguGame_18
     eq
     or
     not
-    if-goto FuguGame_21
+    if-goto FuguGame_25
     push local 2
     push constant 129
     sub
@@ -498,9 +539,9 @@ label FuguGame_18
     push this 0
     call Fugu.getY 1
     pop local 14
-    goto FuguGame_20
-label FuguGame_21
-label FuguGame_20
+    goto FuguGame_24
+label FuguGame_25
+label FuguGame_24
     push local 2
     push constant 32
     eq
@@ -508,7 +549,7 @@ label FuguGame_20
     not
     and
     not
-    if-goto FuguGame_23
+    if-goto FuguGame_27
     push this 0
     call Fugu.getX 1
     push this 0
@@ -519,12 +560,12 @@ label FuguGame_20
     push constant 1
     neg
     pop this 10
-    goto FuguGame_22
-label FuguGame_23
-label FuguGame_22
+    goto FuguGame_26
+label FuguGame_27
+label FuguGame_26
     push this 10
     not
-    if-goto FuguGame_25
+    if-goto FuguGame_29
     push this 9
     call Bubble.update 1
     pop this 10
@@ -538,7 +579,7 @@ label FuguGame_22
     eq
     not
     not
-    if-goto FuguGame_27
+    if-goto FuguGame_31
     push local 15
     push this 2
     add
@@ -562,22 +603,22 @@ label FuguGame_22
     pop that 0
     push constant 0
     pop this 10
-    goto FuguGame_26
-label FuguGame_27
-label FuguGame_26
-    goto FuguGame_24
-label FuguGame_25
-label FuguGame_24
+    goto FuguGame_30
+label FuguGame_31
+label FuguGame_30
+    goto FuguGame_28
+label FuguGame_29
+label FuguGame_28
     push pointer 0
     push local 12
     call FuguGame.IsCollided_LEGACY_Multiple 2
     pop local 5
     goto FuguGame_14
 label FuguGame_15
-label FuguGame_28
+label FuguGame_32
     push local 5
     not
-    if-goto FuguGame_29
+    if-goto FuguGame_33
     push this 0
     call Fugu.erase 1
     pop temp 0
@@ -597,7 +638,7 @@ label FuguGame_28
     push constant 53
     eq
     not
-    if-goto FuguGame_31
+    if-goto FuguGame_35
     push constant 0
     pop local 5
     call Screen.clearScreen 0
@@ -614,23 +655,23 @@ label FuguGame_28
     pop temp 0
     push this 10
     not
-    if-goto FuguGame_33
+    if-goto FuguGame_37
     push this 9
     call Bubble.dispose 1
     pop temp 0
     push constant 0
     pop this 10
-    goto FuguGame_32
-label FuguGame_33
-label FuguGame_32
+    goto FuguGame_36
+label FuguGame_37
+label FuguGame_36
     push pointer 0
     call FuguGame.RestoreCarrots 1
     pop temp 0
-    goto FuguGame_30
-label FuguGame_31
-label FuguGame_30
-    goto FuguGame_28
-label FuguGame_29
+    goto FuguGame_34
+label FuguGame_35
+label FuguGame_34
+    goto FuguGame_32
+label FuguGame_33
     goto FuguGame_12
 label FuguGame_13
     push constant 0
@@ -640,12 +681,12 @@ function FuguGame.RestoreCarrots 2
     pop pointer 0
     push constant 0
     pop local 0
-label FuguGame_34
+label FuguGame_38
     push local 0
     push this 3
     lt
     not
-    if-goto FuguGame_35
+    if-goto FuguGame_39
     push local 0
     push this 12
     add
@@ -653,7 +694,7 @@ label FuguGame_34
     push that 0
     not
     not
-    if-goto FuguGame_37
+    if-goto FuguGame_41
     push local 0
     push this 2
     add
@@ -666,15 +707,15 @@ label FuguGame_34
     push local 1
     call Carrot.dispose 1
     pop temp 0
-    goto FuguGame_36
-label FuguGame_37
-label FuguGame_36
+    goto FuguGame_40
+label FuguGame_41
+label FuguGame_40
     push local 0
     push constant 1
     add
     pop local 0
-    goto FuguGame_34
-label FuguGame_35
+    goto FuguGame_38
+label FuguGame_39
     push pointer 0
     call FuguGame.carrots_assemble 1
     pop temp 0
@@ -685,12 +726,12 @@ function FuguGame.IsBubbleCollidedWithCarrotMultiple_getDestroyedIndex 3
     pop pointer 0
     push constant 0
     pop local 0
-label FuguGame_38
+label FuguGame_42
     push local 0
     push argument 1
     lt
     not
-    if-goto FuguGame_39
+    if-goto FuguGame_43
     push local 0
     push this 2
     add
@@ -701,18 +742,18 @@ label FuguGame_38
     push local 1
     call FuguGame.IsBubbleCollidedWithCarrot 2
     not
-    if-goto FuguGame_41
+    if-goto FuguGame_45
     push local 0
     return
-    goto FuguGame_40
-label FuguGame_41
-label FuguGame_40
+    goto FuguGame_44
+label FuguGame_45
+label FuguGame_44
     push local 0
     push constant 1
     add
     pop local 0
-    goto FuguGame_38
-label FuguGame_39
+    goto FuguGame_42
+label FuguGame_43
     push constant 1
     neg
     return
@@ -769,12 +810,12 @@ function FuguGame.IsCollided_LEGACY_Multiple 2
     pop local 0
     push constant 0
     pop local 1
-label FuguGame_42
+label FuguGame_46
     push local 0
     push argument 1
     lt
     not
-    if-goto FuguGame_43
+    if-goto FuguGame_47
     push local 0
     push this 12
     add
@@ -782,7 +823,7 @@ label FuguGame_42
     push that 0
     not
     not
-    if-goto FuguGame_45
+    if-goto FuguGame_49
     push local 1
     push pointer 0
     push local 0
@@ -793,15 +834,15 @@ label FuguGame_42
     call FuguGame.IsCollided_LEGACY 2
     or
     pop local 1
-    goto FuguGame_44
-label FuguGame_45
-label FuguGame_44
+    goto FuguGame_48
+label FuguGame_49
+label FuguGame_48
     push local 0
     push constant 1
     add
     pop local 0
-    goto FuguGame_42
-label FuguGame_43
+    goto FuguGame_46
+label FuguGame_47
     push local 1
     return
 function FuguGame.IsCollided 0

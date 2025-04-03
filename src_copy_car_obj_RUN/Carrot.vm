@@ -89,9 +89,7 @@ label Carrot_2
     neg
     gt
     push argument 1
-    push this 3
-    add
-    push constant 256
+    push constant 16
     lt
     and
     not
@@ -645,46 +643,36 @@ function Carrot.draw_LEGACY 1
     pop temp 0
     push constant 0
     return
-function Carrot.nextPointFolowwingFugu 12
+function Carrot.setNextPointPosFolowwingFugu 14
+    push argument 0
+    pop pointer 0
     push this 0
     pop local 0
     push this 1
     pop local 1
     push local 0
-    push argument 0
+    push argument 1
     eq
     push local 1
-    push argument 1
+    push argument 2
     eq
     and
     not
     if-goto Carrot_7
-    push constant 0
-    push argument 2
-    add
     push local 0
-    pop temp 0
-    pop pointer 1
-    push temp 0
-    pop that 0
-    push constant 1
-    push argument 2
-    add
+    pop local 12
     push local 1
-    pop temp 0
-    pop pointer 1
-    push temp 0
-    pop that 0
+    pop local 13
     push constant 0
     return
     goto Carrot_6
 label Carrot_7
 label Carrot_6
-    push argument 0
+    push argument 1
     push local 0
     sub
     pop local 2
-    push argument 1
+    push argument 2
     push local 1
     sub
     pop local 3
@@ -781,22 +769,10 @@ label Carrot_16
     goto Carrot_20
 label Carrot_21
 label Carrot_20
-    push constant 0
-    push argument 2
-    add
     push local 10
-    pop temp 0
-    pop pointer 1
-    push temp 0
-    pop that 0
-    push constant 1
-    push argument 2
-    add
+    pop local 12
     push local 11
-    pop temp 0
-    pop pointer 1
-    push temp 0
-    pop that 0
+    pop local 13
     goto Carrot_18
 label Carrot_19
     push constant 2
@@ -824,22 +800,15 @@ label Carrot_19
     goto Carrot_22
 label Carrot_23
 label Carrot_22
-    push constant 0
-    push argument 2
-    add
     push local 10
-    pop temp 0
-    pop pointer 1
-    push temp 0
-    pop that 0
-    push constant 1
-    push argument 2
-    add
+    pop local 12
     push local 11
-    pop temp 0
-    pop pointer 1
-    push temp 0
-    pop that 0
+    pop local 13
 label Carrot_18
+    push pointer 0
+    push local 13
+    push local 12
+    call Carrot.set_YX 3
+    pop temp 0
     push constant 0
     return

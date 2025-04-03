@@ -15,10 +15,6 @@ function Fugu.new 0
     push constant 1
     pop this 5
     push pointer 0
-    push constant 0
-    call Fugu.draw_LEGACY 2
-    pop temp 0
-    push pointer 0
     return
 function Fugu.dispose 0
     push argument 0

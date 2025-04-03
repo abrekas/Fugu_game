@@ -17,7 +17,6 @@ class Fugu{
         let fugu_height = 13;
         let vert_speed = 1;
         let hor_speed = 1;
-        do draw_LEGACY(0);
         return this;
     }
 
