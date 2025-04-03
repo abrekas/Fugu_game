@@ -80,14 +80,6 @@ class FuguGame {
         return Ay*32 + Ax;
     }
 
-    method void moveFugu(){
-        if (direction = 1) { do fugu.moveLeft(); }
-        if (direction = 2) { do fugu.moveUp(); }
-        if (direction = 3) { do fugu.moveRight(); }
-        if (direction = 4) { do fugu.moveDown(); }
-        return;
-    }
-
     method void moveCarrots(int count, int goalX, int goalY){
         var int i;
         let i = 0;
@@ -172,7 +164,7 @@ class FuguGame {
 
                 if ((key = 130) | (key = 131) | (key = 132) | (key = 133)) {
                     let direction = key - 129;
-                    do moveFugu();
+                    do fugu.moveFugu(direction);
                     let fugu_x = fugu.getX();
                     let fugu_y = fugu.getY();
 

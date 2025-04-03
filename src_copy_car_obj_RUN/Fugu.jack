@@ -95,6 +95,14 @@ class Fugu{
         do Memory.poke(memAddress + 384, 0);
         return;
     }
+
+    method void moveFugu(int direction){
+        if (direction = 1) { do moveLeft(); }
+        if (direction = 2) { do moveUp(); }
+        if (direction = 3) { do moveRight(); }
+        if (direction = 4) { do moveDown(); }
+        return;
+    }
     
     
     method void moveUp() {
