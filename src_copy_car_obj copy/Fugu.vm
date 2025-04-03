@@ -60,17 +60,15 @@ function Fugu.get_location 0
     gt
     and
     push argument 1
-    push constant 1
+    push this 3
     add
-    push constant 16
+    push constant 256
     lt
     and
     not
     if-goto Fugu_1
     push argument 1
     push constant 32
-    call Math.multiply 2
-    push constant 16
     call Math.multiply 2
     push argument 2
     add
@@ -103,9 +101,9 @@ label Fugu_2
     neg
     gt
     push argument 1
-    push constant 1
+    push this 3
     add
-    push constant 16
+    push constant 256
     lt
     and
     not

@@ -10,7 +10,7 @@ function Fugu.new 0
     pop this 2
     push constant 13
     pop this 3
-    push constant 1
+    push constant 16
     pop this 4
     push constant 1
     pop this 5
@@ -60,17 +60,15 @@ function Fugu.get_location 0
     gt
     and
     push argument 1
-    push constant 1
+    push this 3
     add
-    push constant 16
+    push constant 256
     lt
     and
     not
     if-goto Fugu_1
     push argument 1
     push constant 32
-    call Math.multiply 2
-    push constant 16
     call Math.multiply 2
     push argument 2
     add
@@ -103,9 +101,9 @@ label Fugu_2
     neg
     gt
     push argument 1
-    push constant 1
+    push this 3
     add
-    push constant 16
+    push constant 256
     lt
     and
     not
@@ -211,94 +209,185 @@ function Fugu.draw 2
     pop temp 0
     push constant 0
     return
-function Fugu.erase 2
+function Fugu.erase 3
     push argument 0
     pop pointer 0
     push pointer 0
     push this 1
     push this 0
     call Fugu.get_location 3
-    pop local 1
+    pop local 2
     push constant 16384
-    push local 1
+    push local 2
     add
     pop local 0
     push local 0
     push constant 0
     add
+    call Memory.peek 1
+    pop local 1
+    push local 0
     push constant 0
+    add
+    push local 1
+    push constant 8448
+    sub
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 32
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 32
+    add
+    push local 1
+    push constant 26560
+    sub
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 64
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 64
+    add
+    push local 1
+    push constant 14432
+    sub
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 96
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 96
+    add
+    push local 1
+    push constant 12344
+    sub
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 128
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 128
+    add
+    push local 1
+    push constant 7160
+    add
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 160
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 160
+    add
+    push local 1
+    push constant 16339
+    add
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 192
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 192
+    add
+    push local 1
+    push constant 16903
+    sub
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 224
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 224
+    add
+    push local 1
+    push constant 17294
+    sub
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 256
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 256
+    add
+    push local 1
+    push constant 24604
+    sub
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 288
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 288
+    add
+    push local 1
+    push constant 8208
+    sub
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 320
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 320
+    add
+    push local 1
+    push constant 14392
+    sub
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 352
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 352
+    add
+    push local 1
+    push constant 3168
+    sub
     call Memory.poke 2
     pop temp 0
     push local 0
     push constant 384
     add
-    push constant 0
+    call Memory.peek 1
+    pop local 1
+    push local 0
+    push constant 384
+    add
+    push local 1
+    push constant 1984
+    sub
     call Memory.poke 2
     pop temp 0
     push constant 0
@@ -317,8 +406,6 @@ function Fugu.moveUp 0
     push this 1
     push constant 32
     call Math.multiply 2
-    push constant 16
-    call Math.multiply 2
     push this 0
     add
     call Fugu.erase_LEGACY 2
@@ -330,8 +417,6 @@ function Fugu.moveUp 0
     push pointer 0
     push this 1
     push constant 32
-    call Math.multiply 2
-    push constant 16
     call Math.multiply 2
     push this 0
     add
@@ -346,9 +431,9 @@ function Fugu.moveDown 0
     push argument 0
     pop pointer 0
     push this 1
-    push constant 1
+    push this 3
     add
-    push constant 16
+    push constant 256
     push this 4
     sub
     push constant 1
@@ -359,8 +444,6 @@ function Fugu.moveDown 0
     push pointer 0
     push this 1
     push constant 32
-    call Math.multiply 2
-    push constant 16
     call Math.multiply 2
     push this 0
     add
@@ -373,8 +456,6 @@ function Fugu.moveDown 0
     push pointer 0
     push this 1
     push constant 32
-    call Math.multiply 2
-    push constant 16
     call Math.multiply 2
     push this 0
     add
@@ -397,21 +478,17 @@ function Fugu.moveLeft 0
     push this 1
     push constant 32
     call Math.multiply 2
-    push constant 16
-    call Math.multiply 2
     push this 0
     add
     call Fugu.erase_LEGACY 2
     pop temp 0
     push this 0
-    push this 5
+    push constant 1
     sub
     pop this 0
     push pointer 0
     push this 1
     push constant 32
-    call Math.multiply 2
-    push constant 16
     call Math.multiply 2
     push this 0
     add
@@ -434,21 +511,17 @@ function Fugu.moveRight 0
     push this 1
     push constant 32
     call Math.multiply 2
-    push constant 16
-    call Math.multiply 2
     push this 0
     add
     call Fugu.erase_LEGACY 2
     pop temp 0
     push this 0
-    push this 5
+    push constant 1
     add
     pop this 0
     push pointer 0
     push this 1
     push constant 32
-    call Math.multiply 2
-    push constant 16
     call Math.multiply 2
     push this 0
     add
