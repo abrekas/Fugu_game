@@ -1,0 +1,63 @@
+class StartsMenu {
+    field String title;
+    field String description;
+    field String controls;
+    field String startPrompt;
+    field String control1;
+    field String control2;
+    field String control3;
+    field String control4;
+    field String control5;
+    
+    constructor StartsMenu new() {
+        let title = "Fugu Game";
+        let description = "Help Fugu defend against carrots by shooting bubbles!";
+        let control1 = "Controls:";
+        let control2 = "- Arrow keys: Move Fugu";
+        let control3 = "- Space: Shoot bubble";
+        let control4 = "- C: Spawn carrot";
+        let control5 = "- 5: Restart game";
+        let controls = "- Q: Quit game";
+        let startPrompt = "Press any key to start...";
+        return this;
+    }
+    
+    method void show() {
+        var char key;
+        do Screen.clearScreen();
+        
+        do Output.moveCursor(2, 25);
+        do Output.printString(title);
+        
+        do Output.moveCursor(4, 4);
+        do Output.printString(description);
+        
+        do Output.moveCursor(7, 5);
+        do Output.printString(control1);
+        do Output.moveCursor(8, 5);
+        do Output.printString(control2);
+        do Output.moveCursor(9, 5);
+        do Output.printString(control3);
+        do Output.moveCursor(10, 5);
+        do Output.printString(control4);
+        do Output.moveCursor(11, 5);
+        do Output.printString(control5);
+        do Output.moveCursor(12, 5);
+        do Output.printString(controls);
+        
+        do Output.moveCursor(20, 15);
+        do Output.printString(startPrompt);
+        
+        while (Keyboard.keyPressed() = 0) {
+            do Sys.wait(50);
+        }
+        
+        do Screen.clearScreen();
+        return;
+    }
+    
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}
