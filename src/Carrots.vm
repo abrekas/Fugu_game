@@ -1,0 +1,247 @@
+function Carrots.new 0
+    push constant 4
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    call Array.new 1
+    pop this 0
+    push argument 0
+    call Array.new 1
+    pop this 1
+    push argument 0
+    pop this 2
+    push constant 0
+    pop this 3
+    push pointer 0
+    call Carrots.carrots_assemble 1
+    pop temp 0
+    push pointer 0
+    return
+function Carrots.updateCarGraphics 1
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+label Carrots_0
+    push local 0
+    push this 3
+    lt
+    not
+    if-goto Carrots_1
+    push constant 0
+    push this 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 32
+    call Math.multiply 2
+    push constant 16
+    call Math.multiply 2
+    push constant 0
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    add
+    call Carrot.draw_LEGACY 1
+    pop temp 0
+    goto Carrots_0
+label Carrots_1
+    push constant 0
+    return
+function Carrots.updateUseCount 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 3
+    push constant 0
+    return
+function Carrots.getXX 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Carrots.getYY 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    return
+function Carrots.carrots_assemble 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    push this 1
+    add
+    push constant 3
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 0
+    push this 0
+    add
+    push constant 5
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push this 1
+    add
+    push constant 7
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push this 0
+    add
+    push constant 16
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push this 1
+    add
+    push constant 12
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push this 0
+    add
+    push constant 29
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push this 1
+    add
+    push constant 14
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push this 0
+    add
+    push constant 27
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push this 1
+    add
+    push constant 14
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push this 0
+    add
+    push constant 31
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push this 1
+    add
+    push constant 15
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push this 0
+    add
+    push constant 10
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push this 1
+    add
+    push constant 6
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push this 0
+    add
+    push constant 26
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push this 1
+    add
+    push constant 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push this 0
+    add
+    push constant 14
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 8
+    push this 1
+    add
+    push constant 13
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 8
+    push this 0
+    add
+    push constant 14
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 9
+    push this 1
+    add
+    push constant 7
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 9
+    push this 0
+    add
+    push constant 16
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 0
+    return
+function Carrots.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    call Array.dispose 1
+    pop temp 0
+    push this 1
+    call Array.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

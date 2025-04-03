@@ -3,16 +3,27 @@ class FuguGame {
     field Fugu fugu;
     field int direction;
     //field Carrot carrot;
-    field Array carrots;
+    field Carrots carrots;
     field int carrots_len;
     field int final_carrots_used;
+
+    field Array carrot_xx;
+    field Array carrot_yy;
+
+    field int carrot_h;
      
 
     constructor FuguGame new(){
         let fugu = Fugu.new(0,0);
         let carrots_len = 10;
-        let carrots = Array.new(carrots_len);
-        do carrots_assemble();
+        let carrot_h = 16;
+        let carrots = Carrots.new(carrots_len);
+        let carrot_xx = carrots.getXX();
+        let carrot_yy = carrots.getYY();
+        //let carrots = Array.new(carrots_len);
+        //let carrots = Carrots.new(carrots_len);
+        // let carrot_xx = Array.new(carrots_len);
+        // let carrot_yy = Array.new(carrots_len);
         //let carrot = Carrot.new(40,7);
 
         let direction = 0;
@@ -21,29 +32,15 @@ class FuguGame {
 
     method void dispose(){
         do fugu.dispose();
-        
+        do carrots.dispose();
         do Memory.deAlloc(this);
-        return;
-    }
-
-    method void carrots_assemble(){
-        let carrots[0] = Carrot.new(3,5);
-        let carrots[1] = Carrot.new(7,31);
-        let carrots[2] = Carrot.new(12,14);
-        let carrots[3] = Carrot.new(7,16);
-        let carrots[4] = Carrot.new(6,7);
-        let carrots[5] = Carrot.new(11,8);
-        let carrots[6] = Carrot.new(8,4);
-        let carrots[7] = Carrot.new(16,4);
-        let carrots[8] = Carrot.new(14,23);
-        let carrots[9] = Carrot.new(5,6);
         return;
     }
 
     method int calc_location(int Ay, int Ax){
         //16-pixel grid
-        //256 in height, 32 in width
-        return Ay*32 + Ax;
+        //16 in height, 32 in width
+        return Ay*32*16 + Ax;
     }
 
     method void moveFugu(){
@@ -51,58 +48,6 @@ class FuguGame {
         if (direction = 2) { do fugu.moveUp(); }
         if (direction = 3) { do fugu.moveRight(); }
         if (direction = 4) { do fugu.moveDown(); }
-        return;
-    }
-
-    method boolean IsCollided_LEGACY (Carrot carrot) {
-        var int xc;
-        var int yc;
-        var int car_h;
-        var int xf;
-        var int yf;
-        var int fugu_h;
-        let xc = carrot.getX();
-        let yc = carrot.getY();
-        let xf = fugu.getX();
-        let yf = fugu.getY();
-        let car_h = carrot.getHeight();
-        let fugu_h = fugu.getHeight();
-        return ((xc = xf) & ( ((yc - 1) < (yf + fugu_h - 1)) & (((yf + fugu_h - 1) < (yc + car_h))  | ( ((yc + car_h) > yf) & (yf > (yc - 1)) ) )));
-    }
-
-    method boolean IsCollided_LEGACY_Multiple (int cars_used) {
-        var int i;
-        var boolean isCollided;
-        let i = 0;
-        let isCollided = false;
-        while (i < cars_used){
-            let isCollided = IsCollided_LEGACY(carrots[i]);
-        }
-        return isCollided;
-    }
-
-    method boolean IsCollided (int x1, int y1, int h1, int x2, int y2, int h2) {
-        //1 - gets destroyed, 2 - survives and thrives
-        return ((x2 = x1) & ( ((y2 - 1) < (y1 + h1 - 1)) & (((y1 + h1 - 1) < (y2 + h2))  | ( ((y2 + h2) > y1) & (y1 > (y2 - 1)) ) )));
-    }
-
-    method void moveCarrots(int count, int carrot_shift){
-        var int i;
-        let i = 0;
-        while (i < count){
-            do moveCarrot(carrots[i], carrot_shift);
-            let i = i+1;
-        }
-        return;
-    }
-
-    method void moveCarrot(Carrot carrot, int car_l){
-        // находит кратчайший путь до рыбы
-        // по алгоритму построения прямой (8 штук его делать не нужно, 
-        // просто переставлять аргументы местами и для +-1 сделать отдельный параметр)
-        do carrot.erase();
-        do carrot.set_YX(carrot.getY()+car_l, carrot.getX());
-        do carrot.draw();
         return;
     }
 
@@ -121,37 +66,25 @@ class FuguGame {
         var int bubbles_len;
         var Carrot carrot_temp;
 
+        var int fugu_x;
+        var int fugu_y;
+        var int fugu_h;
+
         var int carrots_used;
-        
-
-
         
         let exit = false;
         let isCollided = false;
         let carrots_used = 0;
         //do carrot.draw();
         let str = "You loser :)))";
-        
-
-        
-        //рыба может попасть на морковку тоггда и только тогда когда её х совпадает с х морковки
-        //по у очевидно: если у морковки меньше чем у+fugu_height или carrot_y+carrot_height > fugu_y
-        //т.е. попадание <=> ((car_x = fugu_x) & 
-        // ((car_y - 1 < fugu_y + fugu_h - 1 < car_y + car_h) 
-        // | (car_y + car_h > fugu_y > car_y - 1)))
-
-        // аналогично для пузыря и морковки и для пузыря и рыбы 
-        // (рыба ест пузырь, пузырь ест морковь, морковь ест рыбу)
-
         let car_l = 3;
         let even_check = true;
-
-
-        //морковка по кругу бежит
+        let fugu_x = 0;
+        let fugu_y = 0;
+        let fugu_h = fugu.getHeight();
 
         while (~exit){
             let key = 1;
-            
 
             while (~((key = 0) | (exit = true) | (isCollided = true))) {
                 let key = Keyboard.keyPressed();
@@ -159,8 +92,7 @@ class FuguGame {
 
                 if ((key = 67) & (carrots_used < (carrots_len))) {
                     let carrots_used = carrots_used + 1;
-                    let carrot_temp = carrots[(carrots_used - 1)];
-                    do carrot_temp.draw();
+                    do Carrot.draw_LEGACY(carrot_yy[(carrots_used-1)]*32*16 + carrot_xx[(carrots_used-1)]);
                     do Sys.wait(100);
                 }
 
@@ -168,28 +100,22 @@ class FuguGame {
                     let direction = key - 129;
                     do moveFugu();
                     //должно меняться: 0 и 1, 1 и 0
-                    do moveCarrots(carrots_used, car_l);
-                    
+                    //do moveCarrots(carrots_used, car_l);
                     do Sys.wait(30);
-                    
-
                     //let fugu.x = 10; нельзя так делать
-                    let isCollided = IsCollided_LEGACY_Multiple(carrots_used);
+                    
                     //if (isCollided){
                     //    do fugu.erase();
                     //}
                     let car_l = -car_l;
-
-                    
                 }
-                
-                    
-                    
-                
+                let fugu_x = fugu.getX();
+                let fugu_y = fugu.getY();
+                let isCollided = Collision.IsCollided_Multiple_One(fugu_x, fugu_y, fugu_h, carrot_xx, carrot_yy, carrot_h, carrots_len);
             }
-            if (isCollided){
+            while (isCollided){
                 
-                
+                do fugu.erase();
                 do Output.moveCursor(4, 4);
                 do Output.printString(str);
                 do str.dispose();
@@ -197,6 +123,7 @@ class FuguGame {
                 if (key = 53){
                     let isCollided = false;
                     do Screen.clearScreen();
+                    let carrots_used = 0;
                     do fugu.set_YX(0,0);
                     do fugu.draw();
                 }
@@ -205,5 +132,30 @@ class FuguGame {
         }
         return;
     }
+
+
+
+    // method void moveCarrots(int count, int carrot_shift){
+    //     var int i;
+    //     let i = 0;
+    //     while (i < count){
+    //         //do moveCarrot(carrots[i], carrot_shift);
+    //         let i = i+1;
+    //     }
+    //     return;
+    // }
+
+    // method void moveCarrot(Carrot carrot, int car_l){
+    //     // находит кратчайший путь до рыбы
+    //     // по алгоритму построения прямой (8 штук его делать не нужно, 
+    //     // просто переставлять аргументы местами и для +-1 сделать отдельный параметр)
+    //     do carrot.erase();
+    //     do carrot.set_YX(carrot.getY()+car_l, carrot.getX());
+    //     //do Sys.wait(5);
+    //     do carrot.draw();
+    //     return;
+    // }
+
+    
 
 }

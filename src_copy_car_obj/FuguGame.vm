@@ -1,0 +1,623 @@
+function FuguGame.new 0
+    push constant 9
+    call Memory.alloc 1
+    pop pointer 0
+    push constant 0
+    push constant 0
+    call Fugu.new 2
+    pop this 0
+    push constant 10
+    pop this 3
+    push this 3
+    call Array.new 1
+    pop this 2
+    push pointer 0
+    call FuguGame.carrots_assemble 1
+    pop temp 0
+    push constant 0
+    pop this 1
+    push pointer 0
+    return
+function FuguGame.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    call Fugu.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function FuguGame.carrots_assemble 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    push this 2
+    add
+    push constant 3
+    push constant 5
+    call Carrot.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push this 2
+    add
+    push constant 7
+    push constant 31
+    call Carrot.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push this 2
+    add
+    push constant 12
+    push constant 14
+    call Carrot.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push this 2
+    add
+    push constant 7
+    push constant 16
+    call Carrot.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push this 2
+    add
+    push constant 6
+    push constant 7
+    call Carrot.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push this 2
+    add
+    push constant 11
+    push constant 8
+    call Carrot.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push this 2
+    add
+    push constant 8
+    push constant 4
+    call Carrot.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push this 2
+    add
+    push constant 15
+    push constant 4
+    call Carrot.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 8
+    push this 2
+    add
+    push constant 14
+    push constant 23
+    call Carrot.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 9
+    push this 2
+    add
+    push constant 5
+    push constant 6
+    call Carrot.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 0
+    return
+function FuguGame.carrots_beaten_assemble 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    push this 8
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push this 8
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push this 8
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push this 8
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push this 8
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push this 8
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push this 8
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push this 8
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 8
+    push this 8
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 9
+    push this 8
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 0
+    return
+function FuguGame.calc_location 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 32
+    call Math.multiply 2
+    push argument 2
+    add
+    return
+function FuguGame.moveFugu 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push constant 1
+    eq
+    not
+    if-goto FuguGame_1
+    push this 0
+    call Fugu.moveLeft 1
+    pop temp 0
+    goto FuguGame_0
+label FuguGame_1
+label FuguGame_0
+    push this 1
+    push constant 2
+    eq
+    not
+    if-goto FuguGame_3
+    push this 0
+    call Fugu.moveUp 1
+    pop temp 0
+    goto FuguGame_2
+label FuguGame_3
+label FuguGame_2
+    push this 1
+    push constant 3
+    eq
+    not
+    if-goto FuguGame_5
+    push this 0
+    call Fugu.moveRight 1
+    pop temp 0
+    goto FuguGame_4
+label FuguGame_5
+label FuguGame_4
+    push this 1
+    push constant 4
+    eq
+    not
+    if-goto FuguGame_7
+    push this 0
+    call Fugu.moveDown 1
+    pop temp 0
+    goto FuguGame_6
+label FuguGame_7
+label FuguGame_6
+    push constant 0
+    return
+function FuguGame.moveCarrots 1
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+label FuguGame_8
+    push local 0
+    push argument 1
+    lt
+    not
+    if-goto FuguGame_9
+    push pointer 0
+    push local 0
+    push this 2
+    add
+    pop pointer 1
+    push that 0
+    push argument 2
+    push argument 3
+    call FuguGame.moveCarrot 4
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto FuguGame_8
+label FuguGame_9
+    push constant 0
+    return
+function FuguGame.moveCarrot 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    call Carrot.erase 1
+    pop temp 0
+    push argument 1
+    call Carrot.draw 1
+    pop temp 0
+    push constant 0
+    return
+function FuguGame.run 15
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 3
+    push constant 0
+    pop local 5
+    push constant 0
+    pop local 12
+    push constant 14
+    call String.new 1
+    push constant 89
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    push constant 41
+    call String.appendChar 2
+    push constant 41
+    call String.appendChar 2
+    push constant 41
+    call String.appendChar 2
+    pop local 6
+    push constant 3
+    pop local 7
+    push constant 1
+    neg
+    pop local 8
+    push constant 0
+    pop local 13
+    push constant 0
+    pop local 14
+label FuguGame_10
+    push local 3
+    not
+    not
+    if-goto FuguGame_11
+    push constant 1
+    pop local 2
+label FuguGame_12
+    push local 2
+    push constant 0
+    eq
+    push local 3
+    push constant 1
+    neg
+    eq
+    or
+    push local 5
+    push constant 1
+    neg
+    eq
+    or
+    not
+    not
+    if-goto FuguGame_13
+    call Keyboard.keyPressed 0
+    pop local 2
+    push constant 30
+    call Sys.wait 1
+    pop temp 0
+    push local 2
+    push constant 81
+    eq
+    not
+    if-goto FuguGame_15
+    push constant 1
+    neg
+    pop local 3
+    goto FuguGame_14
+label FuguGame_15
+label FuguGame_14
+    push local 2
+    push constant 67
+    eq
+    push local 12
+    push this 3
+    lt
+    and
+    not
+    if-goto FuguGame_17
+    push local 12
+    push constant 1
+    add
+    pop local 12
+    push local 12
+    push constant 1
+    sub
+    push this 2
+    add
+    pop pointer 1
+    push that 0
+    pop local 11
+    push local 11
+    call Carrot.draw 1
+    pop temp 0
+    push constant 100
+    call Sys.wait 1
+    pop temp 0
+    goto FuguGame_16
+label FuguGame_17
+label FuguGame_16
+    push local 2
+    push constant 130
+    eq
+    push local 2
+    push constant 131
+    eq
+    or
+    push local 2
+    push constant 132
+    eq
+    or
+    push local 2
+    push constant 133
+    eq
+    or
+    not
+    if-goto FuguGame_19
+    push local 2
+    push constant 129
+    sub
+    pop this 1
+    push pointer 0
+    call FuguGame.moveFugu 1
+    pop temp 0
+    push this 0
+    call Fugu.getX 1
+    pop local 13
+    push this 0
+    call Fugu.getY 1
+    pop local 14
+    push pointer 0
+    push local 12
+    push local 13
+    push local 14
+    call FuguGame.moveCarrots 4
+    pop temp 0
+    goto FuguGame_18
+label FuguGame_19
+label FuguGame_18
+    push pointer 0
+    push local 12
+    call FuguGame.IsCollided_LEGACY_Multiple 2
+    pop local 5
+    goto FuguGame_12
+label FuguGame_13
+label FuguGame_20
+    push local 5
+    not
+    if-goto FuguGame_21
+    push this 0
+    call Fugu.erase 1
+    pop temp 0
+    push constant 4
+    push constant 4
+    call Output.moveCursor 2
+    pop temp 0
+    push local 6
+    call Output.printString 1
+    pop temp 0
+    push local 6
+    call String.dispose 1
+    pop temp 0
+    call Keyboard.keyPressed 0
+    pop local 2
+    push local 2
+    push constant 53
+    eq
+    not
+    if-goto FuguGame_23
+    push constant 0
+    pop local 5
+    call Screen.clearScreen 0
+    pop temp 0
+    push constant 0
+    pop local 12
+    push this 0
+    push constant 0
+    push constant 0
+    call Fugu.set_YX 3
+    pop temp 0
+    push this 0
+    call Fugu.draw 1
+    pop temp 0
+    goto FuguGame_22
+label FuguGame_23
+label FuguGame_22
+    goto FuguGame_20
+label FuguGame_21
+    goto FuguGame_10
+label FuguGame_11
+    push constant 0
+    return
+function FuguGame.IsCollided_LEGACY 4
+    push argument 0
+    pop pointer 0
+    push argument 1
+    call Carrot.getX 1
+    pop local 0
+    push argument 1
+    call Carrot.getY 1
+    pop local 1
+    push this 0
+    call Fugu.getX 1
+    pop local 2
+    push this 0
+    call Fugu.getY 1
+    pop local 3
+    push local 0
+    push local 2
+    eq
+    push local 1
+    push local 3
+    eq
+    and
+    return
+function FuguGame.IsCollided_LEGACY_Multiple 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+    push constant 0
+    pop local 1
+label FuguGame_24
+    push local 0
+    push argument 1
+    lt
+    not
+    if-goto FuguGame_25
+    push local 1
+    push pointer 0
+    push local 0
+    push this 2
+    add
+    pop pointer 1
+    push that 0
+    call FuguGame.IsCollided_LEGACY 2
+    or
+    pop local 1
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto FuguGame_24
+label FuguGame_25
+    push local 1
+    return
+function FuguGame.IsCollided 0
+    push argument 0
+    pop pointer 0
+    push argument 4
+    push argument 1
+    eq
+    push argument 5
+    push constant 1
+    sub
+    push argument 2
+    push argument 3
+    add
+    push constant 1
+    sub
+    lt
+    push argument 2
+    push argument 3
+    add
+    push constant 1
+    sub
+    push argument 5
+    push argument 6
+    add
+    lt
+    push argument 5
+    push argument 6
+    add
+    push argument 2
+    gt
+    push argument 2
+    push argument 5
+    push constant 1
+    sub
+    gt
+    and
+    or
+    and
+    and
+    return

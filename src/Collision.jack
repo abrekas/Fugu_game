@@ -1,0 +1,33 @@
+class Collision{
+
+    function boolean IsCollided (int x1, int y1, int h1, int x2, int y2, int h2) {
+        //1 - gets destroyed, 2 - survives and thrives
+        return ((x2 = x1) & ( ((y2 - 1) < (y1 + h1 - 1)) & (((y1 + h1 - 1) < (y2 + h2))  | ( ((y2 + h2) > y1) & (y1 > (y2 - 1)) ) )));
+    }
+
+    function boolean IsCollided_Multiple_One(int x1, int y1, int h1, Array xx2, Array yy2, int h2, int len){
+        var boolean ans;
+        var int i;
+        let i = 0;
+        let ans = false;
+        while (i < len){
+            let ans = ans | Collision.IsCollided(x1, y1, h1, xx2[i], yy2[i], h2);
+        }
+        return ans;
+    }
+    
+    function boolean IsCollided_Multiple_Multiple(Array xx1, Array yy1, int h1, int len1, Array xx2, Array yy2, int h2, int len2){
+        var boolean ans;
+        var int i;
+        var int j;
+        let i = 0;
+        let j = 0;
+        let ans = false;
+        while (i < len1){
+            while (j < len2){
+                let ans = ans | Collision.IsCollided(xx1[i], yy1[i], h1, xx2[i], yy2[i], h2);
+            }
+        }
+        return ans;
+    }
+}

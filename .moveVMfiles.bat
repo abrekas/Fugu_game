@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 rem Укажите исходную и целевую папки (измените пути на свои)
-set "source_folder=.\src"
+set "source_folder=.\src_copy_car_obj"
 set "dest_folder=.\vm"
 
 rem Создать целевую папку, если её нет

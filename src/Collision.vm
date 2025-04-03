@@ -1,0 +1,121 @@
+function Collision.IsCollided 0
+    push argument 3
+    push argument 0
+    eq
+    push argument 4
+    push constant 1
+    sub
+    push argument 1
+    push argument 2
+    add
+    push constant 1
+    sub
+    lt
+    push argument 1
+    push argument 2
+    add
+    push constant 1
+    sub
+    push argument 4
+    push argument 5
+    add
+    lt
+    push argument 4
+    push argument 5
+    add
+    push argument 1
+    gt
+    push argument 1
+    push argument 4
+    push constant 1
+    sub
+    gt
+    and
+    or
+    and
+    and
+    return
+function Collision.IsCollided_Multiple_One 2
+    push constant 0
+    pop local 1
+    push constant 0
+    pop local 0
+label Collision_0
+    push local 1
+    push argument 6
+    lt
+    not
+    if-goto Collision_1
+    push local 0
+    push argument 0
+    push argument 1
+    push argument 2
+    push local 1
+    push argument 3
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push argument 4
+    add
+    pop pointer 1
+    push that 0
+    push argument 5
+    call Collision.IsCollided 6
+    or
+    pop local 0
+    goto Collision_0
+label Collision_1
+    push local 0
+    return
+function Collision.IsCollided_Multiple_Multiple 3
+    push constant 0
+    pop local 1
+    push constant 0
+    pop local 2
+    push constant 0
+    pop local 0
+label Collision_2
+    push local 1
+    push argument 3
+    lt
+    not
+    if-goto Collision_3
+label Collision_4
+    push local 2
+    push argument 7
+    lt
+    not
+    if-goto Collision_5
+    push local 0
+    push local 1
+    push argument 0
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push argument 1
+    add
+    pop pointer 1
+    push that 0
+    push argument 2
+    push local 1
+    push argument 4
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push argument 5
+    add
+    pop pointer 1
+    push that 0
+    push argument 6
+    call Collision.IsCollided 6
+    or
+    pop local 0
+    goto Collision_4
+label Collision_5
+    goto Collision_2
+label Collision_3
+    push local 0
+    return

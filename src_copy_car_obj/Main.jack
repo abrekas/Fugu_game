@@ -1,0 +1,16 @@
+/** Main */
+
+class Main {
+
+    function void main () {
+        var boolean game_state;
+        var FuguGame game;
+        var boolean restart_check;
+        let restart_check = false;
+
+        let game = FuguGame.new();
+        do game.run();
+        do game.dispose();
+        return;
+    }
+}

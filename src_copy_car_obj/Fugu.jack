@@ -15,7 +15,7 @@ class Fugu{
         let y = Ay;
         let fugu_width = 16;
         let fugu_height = 13;
-        let vert_speed = 16;
+        let vert_speed = 1;
         let hor_speed = 1;
         do draw_LEGACY(0);
         return this;
@@ -100,36 +100,36 @@ class Fugu{
     
     method void moveUp() {
         if (y > (vert_speed - 1)) {
-            do erase_LEGACY(y * 32 + x);
+            do erase_LEGACY(y * 32 * 16 + x);
             let y = y - vert_speed;
-            do draw_LEGACY(y * 32 + x);
+            do draw_LEGACY(y * 32 * 16 + x);
         }
         return;
     }
 
     method void moveDown() {
-        if (y + fugu_height < (256 - vert_speed + 1)) {
-            do erase_LEGACY(y * 32 + x);
+        if (y + 1 < (16 - vert_speed + 1)) {
+            do erase_LEGACY(y * 32 * 16 + x);
             let y = y + vert_speed;
-            do draw_LEGACY(y * 32 + x);
+            do draw_LEGACY(y * 32 * 16 + x);
         }
         return;
     }
 
     method void moveLeft() {
         if (x > 0) {
-            do erase_LEGACY(y * 32 + x);
-            let x = x - 1;
-            do draw_LEGACY(y * 32 + x);
+            do erase_LEGACY(y * 32 * 16 + x);
+            let x = x - hor_speed;
+            do draw_LEGACY(y * 32 * 16 + x);
         }
         return;
     }
 
     method void moveRight() {
         if (x < 31) {
-            do erase_LEGACY(y * 32 + x);
-            let x = x + 1;
-            do draw_LEGACY(y * 32 + x);
+            do erase_LEGACY(y * 32 * 16 + x);
+            let x = x + hor_speed;
+            do draw_LEGACY(y * 32 * 16 + x);
         }
         return;
     }
